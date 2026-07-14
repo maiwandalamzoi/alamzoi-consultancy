@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maiwand Alamzoi — AI, Data Science & Geospatial Consultant</title>
+<style>
+  :root{
+    --navy:#1f3a5f;
+    --navy-dark:#152a45;
+    --accent:#3d7a9e;
+    --grey:#5a5f66;
+    --bg:#f7f8fa;
+    --card:#ffffff;
+    --border:#e4e7eb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI', Calibri, Arial, sans-serif;
+    color:#222;
+    background:var(--bg);
+    line-height:1.55;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:var(--navy);
+    color:#fff;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 6vw;
+    flex-wrap:wrap;
+  }
+  header.nav .brand{font-weight:700;letter-spacing:.5px;font-size:1.05rem;}
+  header.nav nav a{color:#dce6f0;margin-left:22px;font-size:.92rem;font-weight:600;}
+  header.nav nav a:hover{color:#fff;text-decoration:none;}
+
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);
+    color:#fff;
+    padding:70px 6vw 60px;
+    text-align:left;
+  }
+  .hero h1{font-size:2.4rem;font-weight:800;margin-bottom:8px;}
+  .hero .tagline{font-size:1.15rem;color:#cfe0ee;font-weight:400;margin-bottom:18px;}
+  .hero .meta{font-size:.92rem;color:#a9c1d6;}
+  .hero .meta span{margin-right:18px;display:inline-block;}
+  .hero .cta{margin-top:26px;}
+  .btn{
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    padding:10px 22px;
+    border-radius:4px;
+    font-weight:600;
+    font-size:.92rem;
+    margin-right:12px;
+    margin-top:8px;
+  }
+  .btn:hover{background:#2f6683;text-decoration:none;}
+  .btn.outline{background:transparent;border:1px solid #7ea6c4;color:#e7f0f8;}
+  .btn.outline:hover{background:rgba(255,255,255,.08);}
+
+  section{padding:56px 6vw;max-width:1180px;margin:0 auto;}
+  section h2{
+    font-size:1.5rem;color:var(--navy);
+    margin-bottom:26px;
+    border-bottom:2px solid var(--border);
+    padding-bottom:10px;
+  }
+  section.alt{background:var(--card);}
+
+  .about p{max-width:900px;color:#333;font-size:1.02rem;}
+
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;}
+  .skill-card h3{color:var(--navy);font-size:1rem;margin-bottom:8px;}
+  .skill-card p{font-size:.9rem;color:var(--grey);}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;}
+  .project-card{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:22px;
+    display:flex;flex-direction:column;
+  }
+  .project-card .tag{
+    display:inline-block;background:#e6eef5;color:var(--navy);
+    font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+    padding:3px 9px;border-radius:12px;margin-bottom:10px;width:fit-content;
+  }
+  .project-card h3{color:var(--navy-dark);font-size:1.08rem;margin-bottom:8px;}
+  .project-card p{font-size:.92rem;color:#3d4147;margin-bottom:10px;}
+  .project-card .stack{font-size:.8rem;color:var(--grey);margin-top:auto;padding-top:8px;border-top:1px dashed var(--border);}
+  .project-card .link{font-size:.85rem;font-weight:600;}
+
+  .timeline{border-left:2px solid var(--border);padding-left:26px;}
+  .tl-item{position:relative;margin-bottom:30px;}
+  .tl-item::before{
+    content:'';position:absolute;left:-32px;top:4px;
+    width:10px;height:10px;border-radius:50%;background:var(--accent);
+  }
+  .tl-item .role{font-weight:700;color:var(--navy-dark);font-size:1rem;}
+  .tl-item .org{font-style:italic;color:var(--grey);font-size:.92rem;}
+  .tl-item .dates{font-size:.82rem;color:var(--accent);font-weight:600;margin-bottom:6px;display:block;}
+  .tl-item p{font-size:.92rem;color:#3d4147;}
+
+  .two-col{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;}
+  @media (max-width:800px){.two-col{grid-template-columns:1fr;}}
+
+  .edu-item{margin-bottom:16px;}
+  .edu-item .deg{font-weight:700;color:var(--navy-dark);}
+  .edu-item .school{color:var(--grey);font-size:.9rem;}
+
+  .lang-list span{
+    display:inline-block;background:#eef2f6;color:var(--navy-dark);
+    padding:5px 12px;border-radius:14px;font-size:.85rem;margin:0 8px 8px 0;
+  }
+
+  .contact-band{
+    background:var(--navy-dark);color:#fff;text-align:center;padding:56px 6vw;
+  }
+  .contact-band h2{color:#fff;border:none;}
+  .contact-band p{color:#c7d6e4;max-width:600px;margin:0 auto 20px;}
+
+  footer{
+    text-align:center;padding:22px;font-size:.8rem;color:#8a8f96;background:var(--bg);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">MAIWAND ALAMZOI</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Maiwand Jan Alamzoi</h1>
+  <div class="tagline">Founder, Maiwand Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions</div>
+  <div class="meta">
+    <span>📍 Leuth, Netherlands</span>
+    <span>✉ m.alamzoi123@gmail.com</span>
+    <span>☎ +31 682 120 115</span>
+    <span>🔗 github.com/maiwandalamzoi</span>
+    <span>🌐 zaminai.org</span>
+  </div>
+  <div class="cta">
+    <a class="btn" href="mailto:m.alamzoi123@gmail.com">Get in touch</a>
+    <a class="btn outline" href="#projects">See projects</a>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <h2>About</h2>
+  <p>
+    AI, data science and geospatial consultant with 7+ years building and deploying machine-learning, remote-sensing
+    and full-stack data systems — from data pipeline and model to API, database and live front end. Founder of a
+    KVK-registered technical consultancy (SBI 71120 &amp; 62200) delivering applied AI and data solutions to Dutch SMEs
+    and international clients. Built and deployed two production platforms solo. Unusual engineering depth:
+    an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation — Nuffic-evaluated as equivalent to
+    a Dutch wo master's) combined with international programme and policy experience as a former FAO (UN)
+    national consultant, now on the FAO UN Expert Roster. Comfortable owning the whole pipeline and communicating
+    clearly to non-technical stakeholders.
+  </p>
+</section>
+
+<section id="skills" class="alt">
+  <h2>What I Can Do</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>AI &amp; Machine Learning</h3>
+      <p>Python (Pandas, NumPy, scikit-learn), Random Forest, XGBoost, time series (ARIMA, Prophet), PyTorch foundations, LLM integration (Claude / Gemini APIs), prompt engineering.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Data &amp; Geospatial</h3>
+      <p>SQL, PostgreSQL, Power BI, Streamlit, Plotly, Google Earth Engine, QGIS, GeoPandas, Sentinel-2, NDVI/EVI analysis.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Engineering &amp; Deployment</h3>
+      <p>Flask, REST APIs, Git/GitHub, Docker, Microsoft Azure, Render, IoT &amp; sensor pipelines, CAD (SolidWorks, PRO/E).</p>
+    </div>
+    <div class="skill-card">
+      <h3>Programme &amp; Policy</h3>
+      <p>Project Cycle Management, monitoring &amp; evaluation, policy analysis &amp; formulation, multi-stakeholder coordination, technical training.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Projects &amp; Case Studies</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <span class="tag">Flagship</span>
+      <h3>ZaminAI — Satellite Agricultural Intelligence</h3>
+      <p>Designed and deployed a full-stack AI platform solo, turning live Sentinel-2 satellite data into field-level
+      NDVI, water-stress and crop analytics. Built a multilingual AI advisory assistant (Claude / Gemini) answering
+      farming questions in English, Dari and Pashto — free for 500M+ smallholder farmers lacking digital agricultural
+      support. Collaboration with Wageningen University &amp; Research.</p>
+      <div class="stack">Python · Flask · PostgreSQL (Supabase) · Render · Google Earth Engine · Claude/Gemini APIs</div>
+      <a class="link" href="https://zaminai.org" target="_blank" rel="noopener">zaminai.org →</a>
+    </div>
+
+    <div class="project-card">
+      <span class="tag">Machine Learning</span>
+      <h3>Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra</h3>
+      <p>Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for
+      early stress and disease-risk detection, reaching ~87% classification accuracy. Deployed a monitoring
+      application used across multiple commercial farm sites, part of EU-funded innovation projects in Wageningen.</p>
+      <div class="stack">Python · scikit-learn · Feature engineering · Cross-validation · Remote sensing</div>
+    </div>
+
+    <div class="project-card">
+      <span class="tag">IoT</span>
+      <h3>Sensor-Driven Monitoring — Circle Farming</h3>
+      <p>Developed IoT-based monitoring and real-time data workflows for controlled-environment (circular) farming,
+      integrating live sensor streams into actionable insights and closed-loop optimisation of growing conditions.</p>
+      <div class="stack">IoT pipelines · Real-time data · Sensor integration</div>
+    </div>
+
+    <div class="project-card">
+      <span class="tag">Policy &amp; Development</span>
+      <h3>FAO On-Farm Water Management — Afghanistan</h3>
+      <p>As FAO (UN) National Consultant, delivered food-security assessments and policy analysis; built a national
+      database of agriculture and irrigation policies, strategies and laws. Coordinated FAO, government ministries
+      and development partners. Selected onto the FAO UN Expert Roster.</p>
+      <div class="stack">Policy analysis · M&amp;E · Multi-stakeholder coordination</div>
+    </div>
+
+    <div class="project-card">
+      <span class="tag">Leadership</span>
+      <h3>National Mechanization Services — Ministry of Agriculture (MAIL)</h3>
+      <p>Led a team of 15+ delivering agricultural mechanization services across all 34 Afghan provinces — machinery
+      deployment, redistribution and operator training, including conservation and zero-tillage practices.</p>
+      <div class="stack">Programme leadership · Technology adoption · Training</div>
+    </div>
+
+    <div class="project-card">
+      <span class="tag">Recognition</span>
+      <h3>IFA × Wageningen University &amp; Research Hackathon — Winner</h3>
+      <p>Won the 2026 hackathon on Nutrient Use Efficiency Tracking, applying data-driven modelling to real-world
+      agronomic decision-making challenges.</p>
+      <div class="stack">Applied ML · Agronomic data</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience" class="alt">
+  <h2>Experience</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="role">Founder</span> — <span class="org">Maiwand Alamzoi Consultancy, Netherlands</span>
+      <span class="dates">2026 – Present</span>
+      <p>Registered independent consultancy delivering applied AI, machine-learning and data solutions to Dutch SMEs and development-sector clients.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">Founder &amp; Lead Engineer</span> — <span class="org">ZaminAI</span>
+      <span class="dates">2026 – Present</span>
+      <p>Full-stack AI platform processing live satellite data into field-level analytics, with a multilingual advisory layer.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">Data Scientist</span> — <span class="org">Agrisim &amp; Rapagra, Wageningen</span>
+      <span class="dates">Feb 2023 – Feb 2025</span>
+      <p>ML models for crop stress/disease detection (~87% accuracy); deployed monitoring app across commercial sites.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">AI &amp; Data Scientist (IoT/Sensors)</span> — <span class="org">Circle Farming</span>
+      <span class="dates">2025</span>
+      <p>IoT-based monitoring and real-time data workflows for controlled-environment systems.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">Data Scientist &amp; Trainer</span> — <span class="org">Precision Agriculture Campus, Noord-Brabant</span>
+      <span class="dates">Jul 2022 – Jan 2023</span>
+      <p>Python data-analysis pipelines and visualisations; trained 40+ professionals; contributed to EU project proposals.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">Researcher (Data &amp; Remote Sensing)</span> — <span class="org">HAS University of Applied Sciences, Venlo</span>
+      <span class="dates">Jan 2022 – Jul 2022</span>
+      <p>Processed and analysed large datasets to derive performance indicators.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">FAO (UN) National Consultant — Mechanization Policy</span> — <span class="org">FAO, Kabul, Afghanistan</span>
+      <span class="dates">Nov 2018 – Dec 2019</span>
+      <p>Policy analysis, food-security assessments, national policy database; selected onto FAO UN Expert Roster.</p>
+    </div>
+    <div class="tl-item">
+      <span class="role">Head of National Mechanization Services</span> — <span class="org">Ministry of Agriculture (MAIL), Afghanistan</span>
+      <span class="dates">2016 – 2018</span>
+      <p>Led national mechanization services (team of 15+) across all 34 provinces.</p>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="two-col">
+    <div>
+      <h2>Education</h2>
+      <div class="edu-item">
+        <div class="deg">M.Tech, Agricultural &amp; Food Engineering (Farm Machinery &amp; Power)</div>
+        <div class="school">IIT Kharagpur, India · 2020–2022 · Nuffic-evaluated as equivalent to a Dutch wo master's, ref. C125446</div>
+      </div>
+      <div class="edu-item">
+        <div class="deg">B.Tech, Agricultural Engineering</div>
+        <div class="school">Don State Technical University, Russia · 2011–2016</div>
+      </div>
+      <div class="edu-item">
+        <div class="deg">JICA Knowledge Co-Creation Programme</div>
+        <div class="school">JICA Tsukuba, Japan · 2017</div>
+      </div>
+    </div>
+    <div>
+      <h2>Languages</h2>
+      <div class="lang-list">
+        <span>English — C1</span>
+        <span>Dutch — B2</span>
+        <span>Dari — Native</span>
+        <span>Pashto — Native</span>
+        <span>Russian — B2</span>
+        <span>Hindi/Urdu — Proficient</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-band">
+  <h2>Let's work together</h2>
+  <p>Available for freelance and consultancy projects in AI, data science, machine learning and geospatial analytics.</p>
+  <a class="btn" href="mailto:m.alamzoi123@gmail.com">m.alamzoi123@gmail.com</a>
+  <a class="btn outline" href="https://github.com/maiwandalamzoi" target="_blank" rel="noopener">GitHub</a>
+</section>
+
+<footer>
+  © 2026 Maiwand Alamzoi Consultancy — Leuth, Netherlands · KVK-registered (SBI 71120 &amp; 62200)
+</footer>
+
+</body>
+</html>
