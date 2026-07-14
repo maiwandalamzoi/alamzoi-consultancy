@@ -158,7 +158,7 @@
   .hero{
     background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);
     color:#fff;
-    padding:96px 6vw 76px;
+    padding:100px 6vw 84px;
     text-align:left;
     position:relative;
     overflow:hidden;
@@ -169,25 +169,56 @@
     background:radial-gradient(circle, rgba(91,150,184,.28) 0%, rgba(91,150,184,0) 70%);
     pointer-events:none;
   }
+  .hero-inner{
+    display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center;
+    position:relative;
+  }
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:36px;}
+  }
   .hero .eyebrow{
     display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
     color:var(--accent-light);margin-bottom:16px;
     opacity:0;animation:fadeUp .6s var(--ease) .05s forwards;
   }
-  .hero h1{font-size:2.6rem;font-weight:800;margin-bottom:10px;position:relative;
+  .hero h1{font-size:2.7rem;font-weight:800;margin-bottom:10px;position:relative;line-height:1.12;
     opacity:0;animation:fadeUp .6s var(--ease) .15s forwards;}
-  .hero .tagline{font-size:1.18rem;color:#cfe0ee;font-weight:400;margin-bottom:20px;position:relative;
+  .hero .tagline{font-size:1.18rem;color:#cfe0ee;font-weight:400;margin-bottom:18px;position:relative;
     opacity:0;animation:fadeUp .6s var(--ease) .25s forwards;}
+  .hero .value-prop{
+    font-size:1.03rem;color:#c7d9e8;max-width:540px;margin-bottom:24px;position:relative;
+    opacity:0;animation:fadeUp .6s var(--ease) .32s forwards;
+  }
   .hero .meta{font-size:.92rem;color:#a9c1d6;position:relative;
-    opacity:0;animation:fadeUp .6s var(--ease) .35s forwards;}
+    opacity:0;animation:fadeUp .6s var(--ease) .4s forwards;}
   .hero .meta span{margin-right:18px;display:inline-block;margin-bottom:6px;}
   .hero .cta{margin-top:28px;position:relative;
-    opacity:0;animation:fadeUp .6s var(--ease) .45s forwards;}
+    opacity:0;animation:fadeUp .6s var(--ease) .48s forwards;}
 
   @keyframes fadeUp{
     from{opacity:0;transform:translateY(16px);}
     to{opacity:1;transform:translateY(0);}
   }
+
+  .hero-photo-wrap{
+    display:flex;justify-content:center;align-items:center;position:relative;
+    opacity:0;animation:fadeUp .6s var(--ease) .3s forwards;
+  }
+  .hero-photo{
+    width:260px;height:260px;border-radius:28px;
+    background:linear-gradient(155deg, rgba(255,255,255,.14), rgba(255,255,255,.03));
+    border:1px solid rgba(255,255,255,.22);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;flex-shrink:0;
+    box-shadow:0 24px 50px rgba(6,14,26,.35);
+  }
+  .hero-photo::after{
+    content:'';position:absolute;inset:0;border-radius:28px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .hero-photo svg{width:88px;height:88px;color:rgba(255,255,255,.42);position:relative;}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;border-radius:28px;position:relative;}
+  @media (max-width:900px){.hero-photo{width:190px;height:190px;}.hero-photo svg{width:68px;height:68px;}}
 
   .btn{
     display:inline-block;
@@ -208,18 +239,25 @@
   .btn.outline{background:transparent;border:1px solid #7ea6c4;color:#e7f0f8;}
   .btn.outline:hover{background:rgba(255,255,255,.08);box-shadow:none;}
 
-  section{padding:64px 6vw;max-width:1180px;margin:0 auto;}
+  section{padding:84px 6vw;max-width:1180px;margin:0 auto;}
+  .section-head{margin-bottom:34px;}
+  .kicker{
+    display:block;font-size:.76rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
   section h2{
     font-size:1.55rem;color:var(--navy);
-    margin-bottom:30px;
-    border-bottom:2px solid var(--border);
     padding-bottom:12px;
+    border-bottom:2px solid var(--border);
     transition:color .3s var(--ease), border-color .3s var(--ease);
   }
   [data-theme="dark"] section h2{color:#eaf1f7;}
   section.alt{background:var(--card);transition:background-color .3s var(--ease);}
 
-  .about p{max-width:900px;color:var(--text-soft);font-size:1.02rem;}
+  .about-body p{max-width:900px;color:var(--text-soft);font-size:1.02rem;margin-bottom:14px;}
+  .about-body p:last-child{margin-bottom:0;}
+  .about-body p.lead{font-size:1.08rem;color:var(--text);font-weight:500;}
+  [data-theme="dark"] .about-body p.lead{color:#f1f5f9;}
 
   /* ---------- Stats ---------- */
   .stats-grid{
@@ -241,10 +279,18 @@
 
   .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
   .skill-card{
-    background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;
+    background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px;
     transition:background-color .3s var(--ease), border-color .3s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
   }
   .skill-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--accent);}
+  .skill-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:rgba(61,122,158,.1);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+    transition:background-color .3s var(--ease);
+  }
+  [data-theme="dark"] .skill-icon{background:rgba(91,150,184,.16);}
+  .skill-icon svg{width:22px;height:22px;}
   .skill-card h3{color:var(--navy);font-size:1rem;margin-bottom:10px;}
   [data-theme="dark"] .skill-card h3{color:#fff;}
   .skill-card p{font-size:.9rem;color:var(--grey);}
@@ -298,6 +344,28 @@
   }
   .project-card .expand-hint svg{width:13px;height:13px;transition:transform .25s var(--ease);}
   .project-card:hover .expand-hint svg{transform:translateX(3px);}
+
+  /* ---------- Testimonials ---------- */
+  .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
+  .testimonial-card{
+    background:var(--card);border:2px dashed var(--border);border-radius:10px;
+    padding:26px 24px;display:flex;flex-direction:column;gap:14px;
+    transition:border-color .3s var(--ease), background-color .3s var(--ease);
+  }
+  .testimonial-card .placeholder-tag{
+    font-size:.68rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .testimonial-card .quote-icon{width:26px;height:26px;color:var(--border);}
+  .testimonial-card blockquote{font-size:.94rem;color:var(--grey);font-style:italic;margin:0;line-height:1.55;}
+  .testimonial-card .attribution{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:8px;}
+  .testimonial-card .avatar-placeholder{
+    width:40px;height:40px;border-radius:50%;border:2px dashed var(--border);
+    display:flex;align-items:center;justify-content:center;color:var(--grey);flex-shrink:0;
+  }
+  .testimonial-card .avatar-placeholder svg{width:18px;height:18px;}
+  .testimonial-card .who{font-size:.85rem;color:var(--grey);}
+  .testimonial-card .who .name{display:block;font-weight:700;color:var(--text-soft);}
 
   /* ---------- Modal ---------- */
   .modal-backdrop{
@@ -375,7 +443,7 @@
   .lang-list span:hover{transform:translateY(-2px);}
 
   .contact-band{
-    background:var(--navy-dark);color:#fff;text-align:center;padding:64px 6vw;
+    background:var(--navy-dark);color:#fff;text-align:center;padding:72px 6vw;
     transition:background-color .3s var(--ease);
   }
   .contact-band h2{color:#fff;border:none;}
@@ -395,7 +463,7 @@
       max-height:0;overflow:hidden;
       transition:max-height .3s var(--ease);
     }
-    header.nav nav.is-open{max-height:320px;}
+    header.nav nav.is-open{max-height:360px;}
     header.nav nav a{margin:10px 0;}
     .nav-toggle{
       display:flex;align-items:center;justify-content:center;
@@ -417,6 +485,7 @@
       <a href="#about" data-nav>About</a>
       <a href="#skills" data-nav>Skills</a>
       <a href="#projects" data-nav>Projects</a>
+      <a href="#testimonials" data-nav>Clients</a>
       <a href="#experience" data-nav>Experience</a>
       <a href="#contact" data-nav>Contact</a>
     </nav>
@@ -429,38 +498,68 @@
 </header>
 
 <section class="hero" id="top">
-  <div class="eyebrow">Available for consulting engagements</div>
-  <h1>Maiwand Jan Alamzoi</h1>
-  <div class="tagline">Founder, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions</div>
-  <div class="meta">
-    <span>📍 Leuth, Netherlands</span>
-    <span>✉ maiwand@alamzoiconsultancy.com</span>
-    <span>☎ +31 682 120 115</span>
-    <span>🔗 github.com/maiwandalamzoi</span>
-    <span>🌐 zaminai.org</span>
-  </div>
-  <div class="cta">
-    <a class="btn" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
-    <a class="btn outline" href="#projects">See projects</a>
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Available for consulting engagements</div>
+      <h1>Maiwand Jan Alamzoi</h1>
+      <div class="tagline">Founder, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions</div>
+      <p class="value-prop">I help agri-tech teams, SMEs and public-sector organisations turn satellite data, machine-learning models and messy pipelines into production systems that ship — end to end, from data source to live front end.</p>
+      <div class="meta">
+        <span>📍 Leuth, Netherlands</span>
+        <span>✉ maiwand@alamzoiconsultancy.com</span>
+        <span>☎ +31 682 120 115</span>
+        <span>🔗 github.com/maiwandalamzoi</span>
+        <span>🌐 zaminai.org</span>
+      </div>
+      <div class="cta">
+        <a class="btn" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
+        <a class="btn outline" href="#projects">See projects</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">
+        <!--
+          REPLACE the <svg> placeholder immediately below with:
+          <img src="photo.jpg" alt="Maiwand Jan Alamzoi">
+          Recommended: 800x800px square, professional headshot, JPG or WEBP,
+          well-lit, plain/neutral background. Drop photo.jpg in this same folder.
+        -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="about" class="about reveal">
-  <h2>About</h2>
-  <p>
-    AI, data science and geospatial consultant with 7+ years building and deploying machine-learning, remote-sensing
-    and full-stack data systems — from data pipeline and model to API, database and live front end. Founder of a
-    KVK-registered technical consultancy (SBI 71120 &amp; 62200) delivering applied AI and data solutions to Dutch SMEs
-    and international clients. Built and deployed two production platforms solo. Unusual engineering depth:
-    an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation — Nuffic-evaluated as equivalent to
-    a Dutch wo master's) combined with international programme and policy experience as a former FAO (UN)
-    national consultant, now on the FAO UN Expert Roster. Comfortable owning the whole pipeline and communicating
-    clearly to non-technical stakeholders.
-  </p>
+<section id="about">
+  <div class="section-head reveal">
+    <span class="kicker">Overview</span>
+    <h2>About</h2>
+  </div>
+  <div class="about-body reveal">
+    <p class="lead">
+      I build the full pipeline — from raw satellite and sensor data to the model, the API and the live product a
+      client's team actually uses — as an independent consultancy, not a single-hat freelancer.
+    </p>
+    <p>
+      AI, data science and geospatial consultant with 7+ years building and deploying machine-learning, remote-sensing
+      and full-stack data systems. Founder of a KVK-registered technical consultancy (SBI 71120 &amp; 62200) delivering
+      applied AI and data solutions to Dutch SMEs and international clients. Built and deployed two production
+      platforms solo.
+    </p>
+    <p>
+      Unusual engineering depth: an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation —
+      Nuffic-evaluated as equivalent to a Dutch wo master's) combined with international programme and policy
+      experience as a former FAO (UN) national consultant, now on the FAO UN Expert Roster. Comfortable owning the
+      whole pipeline and communicating clearly to non-technical stakeholders.
+    </p>
+  </div>
 </section>
 
 <section id="skills" class="alt">
-  <h2 class="reveal">What I Can Do</h2>
+  <div class="section-head reveal">
+    <span class="kicker">Capabilities</span>
+    <h2>What I Can Do</h2>
+  </div>
 
   <div class="stats-grid reveal-stagger" id="stats-grid">
     <div class="stat-card">
@@ -483,21 +582,33 @@
 
   <div class="skills-grid reveal-stagger">
     <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+      </div>
       <h3>AI &amp; Machine Learning</h3>
       <p>Python (Pandas, NumPy, scikit-learn), Random Forest, XGBoost, time series (ARIMA, Prophet), PyTorch foundations, LLM integration (Claude / Gemini APIs), prompt engineering.</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="92"></div></div>
     </div>
     <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      </div>
       <h3>Data &amp; Geospatial</h3>
       <p>SQL, PostgreSQL, Power BI, Streamlit, Plotly, Google Earth Engine, QGIS, GeoPandas, Sentinel-2, NDVI/EVI analysis.</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="90"></div></div>
     </div>
     <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      </div>
       <h3>Engineering &amp; Deployment</h3>
       <p>Flask, REST APIs, Git/GitHub, Docker, Microsoft Azure, Render, IoT &amp; sensor pipelines, CAD (SolidWorks, PRO/E).</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div>
     </div>
     <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
       <h3>Programme &amp; Policy</h3>
       <p>Project Cycle Management, monitoring &amp; evaluation, policy analysis &amp; formulation, multi-stakeholder coordination, technical training.</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="88"></div></div>
@@ -506,7 +617,10 @@
 </section>
 
 <section id="projects">
-  <h2 class="reveal">Projects &amp; Case Studies</h2>
+  <div class="section-head reveal">
+    <span class="kicker">Selected Work</span>
+    <h2>Projects &amp; Case Studies</h2>
+  </div>
   <div class="projects-grid reveal-stagger">
 
     <button class="project-card" data-modal="zaminai">
@@ -570,8 +684,54 @@
   </div>
 </section>
 
-<section id="experience" class="alt">
-  <h2 class="reveal">Experience</h2>
+<section id="testimonials" class="alt">
+  <div class="section-head reveal">
+    <span class="kicker">Client Feedback</span>
+    <h2>What Clients Say</h2>
+  </div>
+  <div class="testimonials-grid reveal-stagger">
+
+    <!-- PLACEHOLDER: replace with a real client quote + name + company once available -->
+    <div class="testimonial-card">
+      <span class="placeholder-tag">Testimonial pending</span>
+      <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 17.17c2.5 0 4-2 4-4.5V5H4v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2zm10 0c2.5 0 4-2 4-4.5V5h-7.17v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2z"/></svg>
+      <blockquote>This space is reserved for direct client feedback, added as soon as a completed engagement can be quoted.</blockquote>
+      <div class="attribution">
+        <div class="avatar-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="who"><span class="name">Client name</span>Role, Company</div>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER: replace with a real client quote + name + company once available -->
+    <div class="testimonial-card">
+      <span class="placeholder-tag">Testimonial pending</span>
+      <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 17.17c2.5 0 4-2 4-4.5V5H4v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2zm10 0c2.5 0 4-2 4-4.5V5h-7.17v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2z"/></svg>
+      <blockquote>This space is reserved for direct client feedback, added as soon as a completed engagement can be quoted.</blockquote>
+      <div class="attribution">
+        <div class="avatar-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="who"><span class="name">Client name</span>Role, Company</div>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER: replace with a real client quote + name + company once available -->
+    <div class="testimonial-card">
+      <span class="placeholder-tag">Testimonial pending</span>
+      <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 17.17c2.5 0 4-2 4-4.5V5H4v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2zm10 0c2.5 0 4-2 4-4.5V5h-7.17v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2z"/></svg>
+      <blockquote>This space is reserved for direct client feedback, added as soon as a completed engagement can be quoted.</blockquote>
+      <div class="attribution">
+        <div class="avatar-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="who"><span class="name">Client name</span>Role, Company</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-head reveal">
+    <span class="kicker">Career</span>
+    <h2>Experience</h2>
+  </div>
   <div class="timeline reveal-stagger">
     <div class="tl-item">
       <span class="role">Founder</span> — <span class="org">Alamzoi Consultancy, Netherlands</span>
@@ -616,10 +776,13 @@
   </div>
 </section>
 
-<section id="education">
+<section id="education" class="alt">
+  <div class="section-head reveal">
+    <span class="kicker">Background</span>
+    <h2 style="border:none;padding-bottom:0;">Education &amp; Languages</h2>
+  </div>
   <div class="two-col">
     <div class="reveal">
-      <h2>Education</h2>
       <div class="edu-item">
         <div class="deg">M.Tech, Agricultural &amp; Food Engineering (Farm Machinery &amp; Power)</div>
         <div class="school">IIT Kharagpur, India · 2020–2022 · Nuffic-evaluated as equivalent to a Dutch wo master's, ref. C125446</div>
@@ -634,7 +797,6 @@
       </div>
     </div>
     <div class="reveal">
-      <h2>Languages</h2>
       <div class="lang-list">
         <span>English — C1</span>
         <span>Dutch — B2</span>
