@@ -114,8 +114,14 @@
     border-bottom:1px solid rgba(255,255,255,.06);
   }
   [data-theme="dark"] header.nav{background:rgba(13,27,42,.92);}
-  header.nav .brand{font-weight:700;letter-spacing:.5px;font-size:1.05rem;color:#fff;}
+  header.nav .brand{font-weight:700;letter-spacing:.5px;font-size:1.05rem;color:#fff;display:flex;align-items:center;}
   header.nav .brand:hover{text-decoration:none;}
+  header.nav .brand-logo-chip{
+    display:flex;align-items:center;justify-content:center;
+    background:#fff;border-radius:8px;padding:5px 8px;margin-right:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.18);
+  }
+  header.nav .brand-logo{height:22px;width:auto;display:block;}
   header.nav nav{display:flex;align-items:center;flex-wrap:wrap;}
   header.nav nav a{
     position:relative;
@@ -192,6 +198,8 @@
   .hero .meta{font-size:.92rem;color:#a9c1d6;position:relative;
     opacity:0;animation:fadeUp .6s var(--ease) .4s forwards;}
   .hero .meta span{margin-right:18px;display:inline-block;margin-bottom:6px;}
+  .hero .meta a{color:#cfe0ee;text-decoration:none;border-bottom:1px solid rgba(207,224,238,.35);transition:color .2s var(--ease), border-color .2s var(--ease);}
+  .hero .meta a:hover{color:#fff;border-color:#fff;text-decoration:none;}
   .hero .cta{margin-top:28px;position:relative;
     opacity:0;animation:fadeUp .6s var(--ease) .48s forwards;}
 
@@ -203,22 +211,65 @@
   .hero-photo-wrap{
     display:flex;justify-content:center;align-items:center;position:relative;
     opacity:0;animation:fadeUp .6s var(--ease) .3s forwards;
+    width:260px;height:260px;
+  }
+  .hero-photo-wrap::before{
+    content:'';position:absolute;inset:-14px;border-radius:36px;
+    background:conic-gradient(from 0deg, rgba(91,150,184,0) 0%, rgba(127,178,207,.9) 18%, rgba(91,150,184,0) 40%);
+    animation:orbit 5.5s linear infinite;
+    opacity:.85;
+  }
+  .hero-photo-wrap::after{
+    content:'';position:absolute;inset:-30px;border-radius:44px;
+    background:radial-gradient(circle, rgba(91,150,184,.35) 0%, rgba(91,150,184,0) 72%);
+    animation:pulseGlow 3.2s var(--ease) infinite;
+  }
+  @keyframes orbit{to{transform:rotate(360deg);}}
+  @keyframes pulseGlow{
+    0%,100%{opacity:.55;transform:scale(1);}
+    50%{opacity:1;transform:scale(1.06);}
   }
   .hero-photo{
     width:260px;height:260px;border-radius:28px;
     background:linear-gradient(155deg, rgba(255,255,255,.14), rgba(255,255,255,.03));
-    border:1px solid rgba(255,255,255,.22);
+    border:1px solid rgba(255,255,255,.28);
     display:flex;align-items:center;justify-content:center;
     position:relative;overflow:hidden;flex-shrink:0;
-    box-shadow:0 24px 50px rgba(6,14,26,.35);
+    box-shadow:0 24px 50px rgba(6,14,26,.4);
+    z-index:1;
   }
   .hero-photo::after{
     content:'';position:absolute;inset:0;border-radius:28px;
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);
+    z-index:2;
   }
   .hero-photo svg{width:88px;height:88px;color:rgba(255,255,255,.42);position:relative;}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;border-radius:28px;position:relative;}
-  @media (max-width:900px){.hero-photo{width:190px;height:190px;}.hero-photo svg{width:68px;height:68px;}}
+  .hero-photo > img{width:100%;height:100%;object-fit:cover;border-radius:28px;position:relative;}
+  .brand-logo-card{
+    position:relative;z-index:1;background:#fff;border-radius:20px;
+    width:76%;height:76%;display:flex;align-items:center;justify-content:center;
+    padding:22px;box-shadow:0 10px 30px rgba(6,14,26,.3);
+  }
+  .brand-logo-card img{width:100%;height:100%;object-fit:contain;}
+  .hero-photo--logo::before{
+    content:'';position:absolute;left:-120%;top:0;width:60%;height:100%;
+    background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 50%, rgba(255,255,255,0) 100%);
+    animation:sweep 4.5s ease-in-out infinite;
+    z-index:2;
+  }
+  @keyframes sweep{
+    0%,15%{left:-120%;}
+    55%,100%{left:160%;}
+  }
+  @media (max-width:900px){
+    .hero-photo-wrap{width:190px;height:190px;}
+    .hero-photo{width:190px;height:190px;}
+    .hero-photo svg{width:68px;height:68px;}
+    .brand-logo-card{padding:16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hero-photo-wrap::before,.hero-photo-wrap::after,.hero-photo--logo::before{animation:none;}
+  }
 
   .btn{
     display:inline-block;
@@ -479,13 +530,12 @@
 <body>
 
 <header class="nav">
-  <a class="brand" href="#top">MAIWAND ALAMZOI</a>
+  <a class="brand" href="#top"><span class="brand-logo-chip"><img src="mac-logo.png" alt="MAC — Alamzoi Consultancy" class="brand-logo"></span>MAIWAND ALAMZOI</a>
   <div style="display:flex;align-items:center;">
     <nav id="primary-nav">
       <a href="#about" data-nav>About</a>
       <a href="#skills" data-nav>Skills</a>
       <a href="#projects" data-nav>Projects</a>
-      <a href="#testimonials" data-nav>Clients</a>
       <a href="#experience" data-nav>Experience</a>
       <a href="#contact" data-nav>Contact</a>
     </nav>
@@ -506,10 +556,10 @@
       <p class="value-prop">I help agri-tech teams, SMEs and public-sector organisations turn satellite data, machine-learning models and messy pipelines into production systems that ship — end to end, from data source to live front end.</p>
       <div class="meta">
         <span>📍 Leuth, Netherlands</span>
-        <span>✉ maiwand@alamzoiconsultancy.com</span>
-        <span>☎ +31 682 120 115</span>
-        <span>🔗 github.com/maiwandalamzoi</span>
-        <span>🌐 zaminai.org</span>
+        <span>✉ <a href="mailto:maiwand@alamzoiconsultancy.com">maiwand@alamzoiconsultancy.com</a></span>
+        <span>☎ <a href="tel:+31682120115">+31 682 120 115</a></span>
+        <span>🔗 <a href="https://github.com/maiwandalamzoi" target="_blank" rel="noopener">github.com/maiwandalamzoi</a></span>
+        <span>🌐 <a href="https://zaminai.org" target="_blank" rel="noopener">zaminai.org</a></span>
       </div>
       <div class="cta">
         <a class="btn" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
@@ -517,14 +567,14 @@
       </div>
     </div>
     <div class="hero-photo-wrap">
-      <div class="hero-photo">
+      <div class="hero-photo hero-photo--logo">
         <!--
-          REPLACE the <svg> placeholder immediately below with:
-          <img src="photo.jpg" alt="Maiwand Jan Alamzoi">
+          Optional: replace this whole div's content with
+          <img src="photo.jpg" alt="Maiwand Jan Alamzoi" class="hero-headshot">
           Recommended: 800x800px square, professional headshot, JPG or WEBP,
           well-lit, plain/neutral background. Drop photo.jpg in this same folder.
         -->
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="brand-logo-card"><img src="mac-logo.png" alt="MAC — Alamzoi Consultancy"></div>
       </div>
     </div>
   </div>
@@ -680,49 +730,6 @@
       <div class="stack">Applied ML · Agronomic data</div>
       <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
-
-  </div>
-</section>
-
-<section id="testimonials" class="alt">
-  <div class="section-head reveal">
-    <span class="kicker">Client Feedback</span>
-    <h2>What Clients Say</h2>
-  </div>
-  <div class="testimonials-grid reveal-stagger">
-
-    <!-- PLACEHOLDER: replace with a real client quote + name + company once available -->
-    <div class="testimonial-card">
-      <span class="placeholder-tag">Testimonial pending</span>
-      <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 17.17c2.5 0 4-2 4-4.5V5H4v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2zm10 0c2.5 0 4-2 4-4.5V5h-7.17v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2z"/></svg>
-      <blockquote>This space is reserved for direct client feedback, added as soon as a completed engagement can be quoted.</blockquote>
-      <div class="attribution">
-        <div class="avatar-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div class="who"><span class="name">Client name</span>Role, Company</div>
-      </div>
-    </div>
-
-    <!-- PLACEHOLDER: replace with a real client quote + name + company once available -->
-    <div class="testimonial-card">
-      <span class="placeholder-tag">Testimonial pending</span>
-      <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 17.17c2.5 0 4-2 4-4.5V5H4v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2zm10 0c2.5 0 4-2 4-4.5V5h-7.17v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2z"/></svg>
-      <blockquote>This space is reserved for direct client feedback, added as soon as a completed engagement can be quoted.</blockquote>
-      <div class="attribution">
-        <div class="avatar-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div class="who"><span class="name">Client name</span>Role, Company</div>
-      </div>
-    </div>
-
-    <!-- PLACEHOLDER: replace with a real client quote + name + company once available -->
-    <div class="testimonial-card">
-      <span class="placeholder-tag">Testimonial pending</span>
-      <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 17.17c2.5 0 4-2 4-4.5V5H4v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2zm10 0c2.5 0 4-2 4-4.5V5h-7.17v7.67h3.5c0 1.4-.9 2.5-2.33 2.5v2z"/></svg>
-      <blockquote>This space is reserved for direct client feedback, added as soon as a completed engagement can be quoted.</blockquote>
-      <div class="attribution">
-        <div class="avatar-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div class="who"><span class="name">Client name</span>Role, Company</div>
-      </div>
-    </div>
 
   </div>
 </section>
