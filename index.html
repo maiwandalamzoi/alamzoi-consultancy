@@ -459,7 +459,7 @@
   .modal p, .modal li{font-size:.95rem;color:var(--text-soft);}
   .modal ul{padding-left:20px;margin-top:4px;}
   .modal .stack-line{font-size:.85rem;color:var(--grey);margin-top:16px;padding-top:14px;border-top:1px dashed var(--border);}
-  .modal .modal-link{display:inline-block;margin-top:18px;font-weight:600;}
+  .modal .modal-link{display:inline-block;margin-top:18px;margin-right:20px;font-weight:600;}
   body.modal-open{overflow:hidden;}
 
   /* ---------- Timeline ---------- */
@@ -681,6 +681,17 @@
       farming questions in English, Dari and Pashto — free for 500M+ smallholder farmers lacking digital agricultural
       support. Collaboration with Wageningen University &amp; Research.</p>
       <div class="stack">Python · Flask · PostgreSQL (Supabase) · Render · Google Earth Engine · Claude/Gemini APIs</div>
+      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </button>
+
+    <button class="project-card" data-modal="stresspredict">
+      <span class="tag">Open Source</span>
+      <h3>Crop Stress Prediction — Afghanistan / Netherlands / New Zealand</h3>
+      <p>Open-source pipeline predicting vegetation-stress risk 2–4 weeks ahead from Sentinel-2 imagery and public
+      weather data, across 36 farm locations in three countries with very different agriculture. Random Forest and
+      XGBoost, evaluated on a genuine 2023–2024 holdout (F1 0.41, 72% accuracy — real numbers, not rounded up), with
+      SHAP explainability for every individual prediction and a live interactive dashboard.</p>
+      <div class="stack">Python · Google Earth Engine · Random Forest · XGBoost · SHAP · Streamlit</div>
       <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
@@ -964,6 +975,19 @@
         '<div class="stack-line">Python · Flask · PostgreSQL (Supabase) · Render · Google Earth Engine · Claude/Gemini APIs</div>',
       link: { href: 'https://zaminai.org', label: 'Visit zaminai.org →' }
     },
+    stresspredict: {
+      tag: 'Open Source',
+      title: 'Crop Stress Prediction — 3-Country Satellite ML Pipeline',
+      body: '<p>An open-source, end-to-end ML pipeline predicting vegetation-stress risk 2&ndash;4 weeks ahead of time, built and published solo to demonstrate the full workflow from raw satellite data to a deployed, explainable model.</p>' +
+        '<h4>Challenge</h4><p>There is no public, ground-truthed &ldquo;crop disease&rdquo; dataset built from satellite and weather data alone &mdash; and a lot of portfolio ML projects quietly oversell what they detect. The goal was to build something genuinely defensible: a real predictive signal, evaluated honestly, with the methodology and its limits stated plainly.</p>' +
+        '<h4>Approach</h4><ul><li>Extracted 6 years (2019&ndash;2024) of Sentinel-2 vegetation indices (Google Earth Engine) and daily weather (Open-Meteo) for 36 farm locations across Afghanistan, the Netherlands and New Zealand &mdash; three genuinely different agro-climatic systems.</li><li>Defined a vegetation-stress label via leave-one-year-out NDVI anomaly detection (the same principle operational systems like USDA VegDRI use), then engineered lag, rolling-trend, persistence and weather-anomaly features to predict it 2&ndash;4 weeks ahead &mdash; with zero same-period leakage.</li><li>Trained Random Forest and XGBoost with cross-validated hyperparameter search and a tuned decision threshold, evaluated on a strict time-based holdout (train 2019&ndash;2022, test 2023&ndash;2024).</li><li>Added SHAP explainability so every individual prediction can be broken down feature by feature, and shipped an interactive Streamlit dashboard on top.</li></ul>' +
+        '<h4>Result</h4><p>F1 0.41 on the stress class, 72% accuracy on genuinely unseen 2023&ndash;2024 data &mdash; reported as-is, including where it falls short. The strongest predictor across both models turned out to be stress persistence, and that signal is far stronger in Afghanistan&rsquo;s rainfed systems than in the Netherlands&rsquo; or New Zealand&rsquo;s more intensively managed ones &mdash; a real, data-driven finding, not an assumption going in.</p>' +
+        '<div class="stack-line">Python · Google Earth Engine · Open-Meteo · Random Forest · XGBoost · SHAP · Streamlit</div>',
+      links: [
+        { href: 'https://github.com/maiwandalamzoi/crop-stress-prediction', label: 'View code on GitHub →' },
+        { href: 'https://vxc5hih7hibacl6cvhjxry.streamlit.app/', label: 'Live dashboard →' }
+      ]
+    },
     agrisim: {
       tag: 'Machine Learning',
       title: 'Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra',
@@ -1020,9 +1044,10 @@
     var data = projectData[key];
     if(!data) return;
     var html = '<span class="tag">' + data.tag + '</span><h3>' + data.title + '</h3>' + data.body;
-    if(data.link){
-      html += '<a class="modal-link" href="' + data.link.href + '" target="_blank" rel="noopener">' + data.link.label + '</a>';
-    }
+    var links = data.links || (data.link ? [data.link] : []);
+    links.forEach(function(l){
+      html += '<a class="modal-link" href="' + l.href + '" target="_blank" rel="noopener">' + l.label + '</a>';
+    });
     modalContent.innerHTML = html;
     lastFocused = document.activeElement;
     backdrop.classList.add('is-open');
