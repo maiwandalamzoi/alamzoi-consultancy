@@ -493,6 +493,19 @@
   [data-theme="dark"] .lang-list span{background:#1c3350;color:#dce6f0;}
   .lang-list span:hover{transform:translateY(-2px);}
 
+  .project-card .result-line{
+    font-size:.9rem;color:var(--navy-dark);font-weight:600;margin:10px 0 0;
+    padding-top:10px;border-top:1px dashed var(--border);
+  }
+  [data-theme="dark"] .project-card .result-line{color:#eaf1f7;}
+  .project-card .result-line b{color:var(--accent);}
+
+  .industries-line{margin-top:22px;}
+  .industries-label{
+    display:block;font-size:.76rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+
   .contact-band{
     background:var(--navy-dark);color:#fff;text-align:center;padding:72px 6vw;
     transition:background-color .3s var(--ease);
@@ -553,7 +566,7 @@
       <div class="eyebrow">Available for consulting engagements</div>
       <h1>Maiwand Jan Alamzoi</h1>
       <div class="tagline">Founder, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions</div>
-      <p class="value-prop">I help agri-tech teams, SMEs and public-sector organisations turn satellite data, machine-learning models and messy pipelines into production systems that ship — end to end, from data source to live front end.</p>
+      <p class="value-prop">I help AgriTech companies, water authorities and municipalities automate satellite data workflows — reducing manual analysis time from weeks to minutes and building production-ready AI tools.</p>
       <div class="meta">
         <span>📍 Leuth, Netherlands</span>
         <span>✉ <a href="mailto:maiwand@alamzoiconsultancy.com">maiwand@alamzoiconsultancy.com</a></span>
@@ -562,7 +575,8 @@
         <span>🌐 <a href="https://zaminai.org" target="_blank" rel="noopener">zaminai.org</a></span>
       </div>
       <div class="cta">
-        <a class="btn" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
+        <a class="btn cta-audit-link" href="mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&amp;body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.">Book a Free 30-Minute Geospatial &amp; Data Audit</a>
+        <a class="btn outline" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
         <a class="btn outline" href="#projects">See projects</a>
       </div>
     </div>
@@ -591,10 +605,10 @@
       client's team actually uses — as an independent consultancy, not a single-hat freelancer.
     </p>
     <p>
-      AI, data science and geospatial consultant with 7+ years building and deploying machine-learning, remote-sensing
-      and full-stack data systems. Founder of a KVK-registered technical consultancy (SBI 71120 &amp; 62200) delivering
-      applied AI and data solutions to Dutch SMEs and international clients. Built and deployed two production
-      platforms solo.
+      AI, data science and geospatial consultant with 7+ years building and deploying satellite-data, machine-learning
+      and software systems for real production use. Founder of a KVK-registered technical consultancy (SBI 71120
+      &amp; 62200) delivering applied AI and data solutions to Dutch SMEs and international clients. Built and
+      deployed two production platforms solo.
     </p>
     <p>
       Unusual engineering depth: an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation —
@@ -602,6 +616,22 @@
       experience as a former FAO (UN) national consultant, now on the FAO UN Expert Roster. Comfortable owning the
       whole pipeline and communicating clearly to non-technical stakeholders.
     </p>
+    <p>
+      Based in Leuth (Gelderland, Arnhem-Nijmegen region) and available hybrid or on-location anywhere in the
+      Netherlands for site visits, workshops and embedded project work. Particular focus on themes with active Dutch
+      and EU funding and policy attention: nitrogen and drought monitoring, precision agriculture (Wageningen
+      ecosystem), ESG &amp; CSRD reporting, and climate adaptation.
+    </p>
+
+    <div class="industries-line">
+      <span class="industries-label">Industries I work with:</span>
+      <div class="lang-list industries-list">
+        <span>AgriTech &amp; Precision Agriculture</span>
+        <span>Climate, Energy &amp; ESG</span>
+        <span>Urban Planning &amp; Smart Cities</span>
+        <span>Insurance &amp; Risk Analysis</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -680,6 +710,7 @@
       NDVI, water-stress and crop analytics. Built a multilingual AI advisory assistant (Claude / Gemini) answering
       farming questions in English, Dari and Pashto — free for 500M+ smallholder farmers lacking digital agricultural
       support. Collaboration with Wageningen University &amp; Research.</p>
+      <p class="result-line"><b>Result:</b> production platform live and free for 500M+ underserved smallholder farmers, built and deployed solo.</p>
       <div class="stack">Python · Flask · PostgreSQL (Supabase) · Render · Google Earth Engine · Claude/Gemini APIs</div>
       <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
@@ -701,6 +732,7 @@
       <p>Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for
       early stress and disease-risk detection, reaching ~87% classification accuracy. Deployed a monitoring
       application used across multiple commercial farm sites, part of EU-funded innovation projects in Wageningen.</p>
+      <p class="result-line"><b>Result:</b> automated monitoring across multiple commercial farm sites with ~87% prediction accuracy, cutting manual field-checking time.</p>
       <div class="stack">Python · scikit-learn · Feature engineering · Cross-validation · Remote sensing</div>
       <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
@@ -830,7 +862,8 @@
 <section id="contact" class="contact-band reveal">
   <h2>Let's work together</h2>
   <p>Available for freelance and consultancy projects in AI, data science, machine learning and geospatial analytics.</p>
-  <a class="btn" href="mailto:maiwand@alamzoiconsultancy.com">maiwand@alamzoiconsultancy.com</a>
+  <a class="btn cta-audit-link" href="mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&amp;body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.">Book a Free 30-Minute Geospatial &amp; Data Audit</a>
+  <a class="btn outline" href="mailto:maiwand@alamzoiconsultancy.com">maiwand@alamzoiconsultancy.com</a>
   <a class="btn outline" href="https://github.com/maiwandalamzoi" target="_blank" rel="noopener">GitHub</a>
 </section>
 
@@ -848,6 +881,61 @@
 <script>
 (function(){
   "use strict";
+
+  /* ---------- Animated stat counters ----------
+     Runs first and is wrapped in its own try/catch so an error anywhere else
+     in this script (theme toggle, nav, modal, etc.) can never prevent these
+     numbers from displaying correctly. Also has a guaranteed setTimeout
+     fallback in addition to the scroll-triggered IntersectionObserver, so it
+     fires even if the visibility threshold is somehow never satisfied. */
+  try {
+    var statsGrid = document.getElementById('stats-grid');
+    var countersPlayed = false;
+    var playCounters = function(){
+      if(countersPlayed || !statsGrid) return;
+      countersPlayed = true;
+      var nums = statsGrid.querySelectorAll('.num');
+      nums.forEach(function(el){
+        var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1200;
+        var start = null;
+        function step(ts){
+          if(start === null) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if(progress < 1){ requestAnimationFrame(step); }
+        }
+        requestAnimationFrame(step);
+      });
+      document.querySelectorAll('.skill-bar-fill').forEach(function(bar){
+        var level = bar.getAttribute('data-level') || '0';
+        requestAnimationFrame(function(){ bar.style.width = level + '%'; });
+      });
+    };
+    if(statsGrid){
+      if('IntersectionObserver' in window){
+        var statsIO = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){ playCounters(); statsIO.disconnect(); }
+          });
+        }, { threshold: 0.15 });
+        statsIO.observe(statsGrid);
+      } else {
+        playCounters();
+      }
+      window.addEventListener('load', function(){ setTimeout(playCounters, 4000); });
+    }
+  } catch(e) { /* isolated: never blocks the rest of the page's JS */ }
+
+  /* ---------- Low-barrier CTA: single config point for the booking link ----------
+     Swap BOOKING_CTA_URL to a Calendly/TidyCal link later -- every button with
+     class "cta-audit-link" (hero + footer) updates automatically. */
+  try {
+    var BOOKING_CTA_URL = "mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.";
+    document.querySelectorAll('.cta-audit-link').forEach(function(el){ el.href = BOOKING_CTA_URL; });
+  } catch(e) {}
 
   /* ---------- Theme toggle ---------- */
   var root = document.documentElement;
@@ -926,43 +1014,6 @@
     revealEls.forEach(function(el){ el.classList.add('is-visible'); });
   }
 
-  /* ---------- Animated stat counters ---------- */
-  var statsGrid = document.getElementById('stats-grid');
-  var countersPlayed = false;
-  function playCounters(){
-    if(countersPlayed) return;
-    countersPlayed = true;
-    var nums = statsGrid.querySelectorAll('.num');
-    nums.forEach(function(el){
-      var target = parseInt(el.getAttribute('data-count'), 10) || 0;
-      var suffix = el.getAttribute('data-suffix') || '';
-      var duration = 1200;
-      var start = null;
-      function step(ts){
-        if(start === null) start = ts;
-        var progress = Math.min((ts - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(eased * target) + suffix;
-        if(progress < 1){ requestAnimationFrame(step); }
-      }
-      requestAnimationFrame(step);
-    });
-    document.querySelectorAll('.skill-bar-fill').forEach(function(bar){
-      var level = bar.getAttribute('data-level') || '0';
-      requestAnimationFrame(function(){ bar.style.width = level + '%'; });
-    });
-  }
-  if('IntersectionObserver' in window){
-    var statsIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){ playCounters(); statsIO.disconnect(); }
-      });
-    }, { threshold: 0.4 });
-    statsIO.observe(statsGrid);
-  } else {
-    playCounters();
-  }
-
   /* ---------- Project modal ---------- */
   var projectData = {
     zaminai: {
@@ -971,7 +1022,7 @@
       body: '<p>A full-stack AI platform designed and deployed solo, turning live Sentinel-2 satellite data into field-level NDVI, water-stress and crop analytics for Afghan smallholder farmers.</p>' +
         '<h4>Challenge</h4><p>500M+ smallholder farmers globally lack access to digital agricultural advisory tools, and existing platforms are neither multilingual nor built for low-bandwidth regions like Afghanistan.</p>' +
         '<h4>Approach</h4><ul><li>Built a Flask API layer querying Sentinel-2, Landsat and Sentinel-1 satellite sources via Google Earth Engine for NDVI, EVI, SAVI and soil-moisture indices.</li><li>Integrated Claude and Gemini APIs for a multilingual advisory assistant answering farming questions in English, Dari and Pashto.</li><li>Designed a Supabase-backed data layer for farmer profiles, field polygons and historical analyses, with graceful fallback when offline.</li></ul>' +
-        '<h4>Result</h4><p>A production platform, free to use, built in collaboration with Wageningen University &amp; Research — delivering field-level intelligence to a population that previously had none.</p>' +
+        '<h4>Result</h4><p><b>Production platform live and free for 500M+ underserved smallholder farmers</b>, built in collaboration with Wageningen University &amp; Research — delivering field-level intelligence to a population that previously had none.</p>' +
         '<div class="stack-line">Python · Flask · PostgreSQL (Supabase) · Render · Google Earth Engine · Claude/Gemini APIs</div>',
       link: { href: 'https://zaminai.org', label: 'Visit zaminai.org →' }
     },
@@ -994,7 +1045,7 @@
       body: '<p>ML models for early crop stress and disease-risk detection, developed and validated during two years as Data Scientist at Agrisim &amp; Rapagra, Wageningen.</p>' +
         '<h4>Challenge</h4><p>Commercial growers needed earlier-than-visual warning of crop stress and disease risk across multiple farm sites, using data already being collected (multispectral imagery, weather, field sensors).</p>' +
         '<h4>Approach</h4><ul><li>Engineered features from multispectral, meteorological and field-level data.</li><li>Trained and cross-validated Random Forest and XGBoost classifiers, tuning for precision on early-stage stress signals.</li><li>Packaged the model into a monitoring application deployed across multiple commercial farm sites.</li></ul>' +
-        '<h4>Result</h4><p>~87% classification accuracy in production use, as part of EU-funded innovation projects based in Wageningen.</p>' +
+        '<h4>Result</h4><p><b>Automated monitoring across multiple commercial farm sites with ~87% prediction accuracy</b>, cutting manual field-checking time, as part of EU-funded innovation projects based in Wageningen.</p>' +
         '<div class="stack-line">Python · scikit-learn · Feature engineering · Cross-validation · Remote sensing</div>'
     },
     circlefarming: {
