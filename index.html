@@ -139,6 +139,19 @@
   header.nav nav a.active{color:#fff;}
   header.nav nav a.active::after{width:100%;}
 
+  .lang-toggle{
+    margin-left:22px;
+    height:38px;padding:0 12px;
+    border-radius:19px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    cursor:pointer;
+    font-size:.8rem;font-weight:700;letter-spacing:.5px;
+    transition:background-color .2s var(--ease), transform .2s var(--ease), border-color .2s var(--ease);
+  }
+  .lang-toggle:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);}
+  .lang-toggle:active{transform:scale(.92);}
   .theme-toggle{
     margin-left:22px;
     width:38px;height:38px;
@@ -546,12 +559,13 @@
   <a class="brand" href="#top"><span class="brand-logo-chip"><img src="mac-logo.png" alt="MAC — Alamzoi Consultancy" class="brand-logo"></span>MAIWAND ALAMZOI</a>
   <div style="display:flex;align-items:center;">
     <nav id="primary-nav">
-      <a href="#about" data-nav>About</a>
-      <a href="#skills" data-nav>Skills</a>
-      <a href="#projects" data-nav>Projects</a>
-      <a href="#experience" data-nav>Experience</a>
-      <a href="#contact" data-nav>Contact</a>
+      <a href="#about" data-nav data-i18n="nav_about">About</a>
+      <a href="#skills" data-nav data-i18n="nav_skills">Skills</a>
+      <a href="#projects" data-nav data-i18n="nav_projects">Projects</a>
+      <a href="#experience" data-nav data-i18n="nav_experience">Experience</a>
+      <a href="#contact" data-nav data-i18n="nav_contact">Contact</a>
     </nav>
+    <button class="lang-toggle" id="lang-toggle" aria-label="Switch language / Wissel taal" title="Switch language / Wissel taal">EN</button>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -563,21 +577,21 @@
 <section class="hero" id="top">
   <div class="hero-inner">
     <div>
-      <div class="eyebrow">Available for consulting engagements</div>
+      <div class="eyebrow" data-i18n="hero_eyebrow">Available for consulting engagements</div>
       <h1>Maiwand Jan Alamzoi</h1>
-      <div class="tagline">Founder, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions</div>
-      <p class="value-prop">I help AgriTech companies, water authorities and municipalities automate satellite data workflows — reducing manual analysis time from weeks to minutes and building production-ready AI tools.</p>
+      <div class="tagline" data-i18n="hero_tagline">Founder, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions</div>
+      <p class="value-prop" data-i18n="hero_value_prop">I help AgriTech companies, water authorities and municipalities automate satellite data workflows — reducing manual analysis time from weeks to minutes and building production-ready AI tools.</p>
       <div class="meta">
-        <span>📍 Leuth, Netherlands</span>
+        <span>📍 <span data-i18n="hero_location">Leuth, Netherlands</span></span>
         <span>✉ <a href="mailto:maiwand@alamzoiconsultancy.com">maiwand@alamzoiconsultancy.com</a></span>
         <span>☎ <a href="tel:+31682120115">+31 682 120 115</a></span>
         <span>🔗 <a href="https://github.com/maiwandalamzoi" target="_blank" rel="noopener">github.com/maiwandalamzoi</a></span>
         <span>🌐 <a href="https://zaminai.org" target="_blank" rel="noopener">zaminai.org</a></span>
       </div>
       <div class="cta">
-        <a class="btn cta-audit-link" href="mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&amp;body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.">Book a Free 30-Minute Geospatial &amp; Data Audit</a>
-        <a class="btn outline" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
-        <a class="btn outline" href="#projects">See projects</a>
+        <a class="btn cta-audit-link" data-i18n="cta_audit" href="mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&amp;body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.">Book a Free 30-Minute Geospatial &amp; Data Audit</a>
+        <a class="btn outline" data-i18n="cta_touch" href="mailto:maiwand@alamzoiconsultancy.com">Get in touch</a>
+        <a class="btn outline" data-i18n="cta_projects" href="#projects">See projects</a>
       </div>
     </div>
     <div class="hero-photo-wrap">
@@ -596,40 +610,41 @@
 
 <section id="about">
   <div class="section-head reveal">
-    <span class="kicker">Overview</span>
-    <h2>About</h2>
+    <span class="kicker" data-i18n="about_kicker">Overview</span>
+    <h2 data-i18n="about_title">About</h2>
   </div>
   <div class="about-body reveal">
-    <p class="lead">
+    <p class="lead" data-i18n="about_lead">
       I build the full pipeline — from raw satellite and sensor data to the model, the API and the live product a
       client's team actually uses — as an independent consultancy, not a single-hat freelancer.
     </p>
-    <p>
+    <p data-i18n="about_p1">
       AI, data science and geospatial consultant with 7+ years building and deploying satellite-data, machine-learning
       and software systems for real production use. Founder of a KVK-registered technical consultancy (SBI 71120
       &amp; 62200) delivering applied AI and data solutions to Dutch SMEs and international clients. Built and
       deployed two production platforms solo.
     </p>
-    <p>
+    <p data-i18n="about_p2">
       Unusual engineering depth: an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation —
       Nuffic-evaluated as equivalent to a Dutch wo master's) combined with international programme and policy
       experience as a former FAO (UN) national consultant, now on the FAO UN Expert Roster. Comfortable owning the
       whole pipeline and communicating clearly to non-technical stakeholders.
     </p>
-    <p>
+    <p data-i18n="about_p3">
       Based in Leuth (Gelderland, Arnhem-Nijmegen region) and available hybrid or on-location anywhere in the
       Netherlands for site visits, workshops and embedded project work. Particular focus on themes with active Dutch
       and EU funding and policy attention: nitrogen and drought monitoring, precision agriculture (Wageningen
-      ecosystem), ESG &amp; CSRD reporting, and climate adaptation.
+      ecosystem), ESG &amp; CSRD reporting, and climate adaptation. Also available fully remote for EU and
+      international engagements.
     </p>
 
     <div class="industries-line">
-      <span class="industries-label">Industries I work with:</span>
+      <span class="industries-label" data-i18n="industries_label">Industries I work with:</span>
       <div class="lang-list industries-list">
-        <span>AgriTech &amp; Precision Agriculture</span>
-        <span>Climate, Energy &amp; ESG</span>
-        <span>Urban Planning &amp; Smart Cities</span>
-        <span>Insurance &amp; Risk Analysis</span>
+        <span data-i18n="industry_1">AgriTech &amp; Precision Agriculture</span>
+        <span data-i18n="industry_2">Climate, Energy &amp; ESG</span>
+        <span data-i18n="industry_3">Urban Planning &amp; Smart Cities</span>
+        <span data-i18n="industry_4">Insurance &amp; Risk Analysis</span>
       </div>
     </div>
   </div>
@@ -637,26 +652,26 @@
 
 <section id="skills" class="alt">
   <div class="section-head reveal">
-    <span class="kicker">Capabilities</span>
-    <h2>What I Can Do</h2>
+    <span class="kicker" data-i18n="skills_kicker">Capabilities</span>
+    <h2 data-i18n="skills_title">What I Can Do</h2>
   </div>
 
   <div class="stats-grid reveal-stagger" id="stats-grid">
     <div class="stat-card">
       <div class="num" data-count="7" data-suffix="+">0</div>
-      <div class="label">Years Experience</div>
+      <div class="label" data-i18n="stat_years">Years Experience</div>
     </div>
     <div class="stat-card">
       <div class="num" data-count="2" data-suffix="">0</div>
-      <div class="label">Platforms Deployed Solo</div>
+      <div class="label" data-i18n="stat_platforms">Platforms Deployed Solo</div>
     </div>
     <div class="stat-card">
       <div class="num" data-count="87" data-suffix="%">0</div>
-      <div class="label">Model Accuracy (Crop Stress)</div>
+      <div class="label" data-i18n="stat_accuracy">Model Accuracy (Crop Stress)</div>
     </div>
     <div class="stat-card">
       <div class="num" data-count="500" data-suffix="M+">0</div>
-      <div class="label">Smallholder Farmers Reachable</div>
+      <div class="label" data-i18n="stat_farmers">Smallholder Farmers Reachable</div>
     </div>
   </div>
 
@@ -665,32 +680,32 @@
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
       </div>
-      <h3>AI &amp; Machine Learning</h3>
-      <p>Python (Pandas, NumPy, scikit-learn), Random Forest, XGBoost, time series (ARIMA, Prophet), PyTorch foundations, LLM integration (Claude / Gemini APIs), prompt engineering.</p>
+      <h3 data-i18n="skill1_title">AI &amp; Machine Learning</h3>
+      <p data-i18n="skill1_desc">Python (Pandas, NumPy, scikit-learn), Random Forest, XGBoost, time series (ARIMA, Prophet), PyTorch foundations, LLM integration (Claude / Gemini APIs), prompt engineering.</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="92"></div></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
       </div>
-      <h3>Data &amp; Geospatial</h3>
-      <p>SQL, PostgreSQL, Power BI, Streamlit, Plotly, Google Earth Engine, QGIS, GeoPandas, Sentinel-2, NDVI/EVI analysis.</p>
+      <h3 data-i18n="skill2_title">Data &amp; Geospatial</h3>
+      <p data-i18n="skill2_desc">SQL, PostgreSQL, Power BI, Streamlit, Plotly, Google Earth Engine, QGIS, GeoPandas, Sentinel-2, NDVI/EVI analysis.</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="90"></div></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
       </div>
-      <h3>Engineering &amp; Deployment</h3>
-      <p>Flask, REST APIs, Git/GitHub, Docker, Microsoft Azure, Render, IoT &amp; sensor pipelines, CAD (SolidWorks, PRO/E).</p>
+      <h3 data-i18n="skill3_title">Engineering &amp; Deployment</h3>
+      <p data-i18n="skill3_desc">Flask, REST APIs, Git/GitHub, Docker, Microsoft Azure, Render, IoT &amp; sensor pipelines, CAD (SolidWorks, PRO/E).</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
-      <h3>Programme &amp; Policy</h3>
-      <p>Project Cycle Management, monitoring &amp; evaluation, policy analysis &amp; formulation, multi-stakeholder coordination, technical training.</p>
+      <h3 data-i18n="skill4_title">Programme &amp; Policy</h3>
+      <p data-i18n="skill4_desc">Project Cycle Management, monitoring &amp; evaluation, policy analysis &amp; formulation, multi-stakeholder coordination, technical training.</p>
       <div class="skill-bar-track"><div class="skill-bar-fill" data-level="88"></div></div>
     </div>
   </div>
@@ -698,80 +713,80 @@
 
 <section id="projects">
   <div class="section-head reveal">
-    <span class="kicker">Selected Work</span>
-    <h2>Projects &amp; Case Studies</h2>
+    <span class="kicker" data-i18n="projects_kicker">Selected Work</span>
+    <h2 data-i18n="projects_title">Projects &amp; Case Studies</h2>
   </div>
   <div class="projects-grid reveal-stagger">
 
     <button class="project-card" data-modal="zaminai">
-      <span class="tag">Flagship</span>
-      <h3>ZaminAI — Satellite Agricultural Intelligence</h3>
-      <p>Designed and deployed a full-stack AI platform solo, turning live Sentinel-2 satellite data into field-level
+      <span class="tag" data-i18n="p_zaminai_tag">Flagship</span>
+      <h3 data-i18n="p_zaminai_title">ZaminAI — Satellite Agricultural Intelligence</h3>
+      <p data-i18n="p_zaminai_body">Designed and deployed a full-stack AI platform solo, turning live Sentinel-2 satellite data into field-level
       NDVI, water-stress and crop analytics. Built a multilingual AI advisory assistant (Claude / Gemini) answering
       farming questions in English, Dari and Pashto — free for 500M+ smallholder farmers lacking digital agricultural
       support. Collaboration with Wageningen University &amp; Research.</p>
-      <p class="result-line"><b>Result:</b> production platform live and free for 500M+ underserved smallholder farmers, built and deployed solo.</p>
+      <p class="result-line" data-i18n-html="p_zaminai_result"><b>Result:</b> production platform live and free for 500M+ underserved smallholder farmers, built and deployed solo.</p>
       <div class="stack">Python · Flask · PostgreSQL (Supabase) · Render · Google Earth Engine · Claude/Gemini APIs</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
     <button class="project-card" data-modal="stresspredict">
-      <span class="tag">Open Source</span>
-      <h3>Crop Stress Prediction — Afghanistan / Netherlands / New Zealand</h3>
-      <p>Open-source pipeline predicting vegetation-stress risk 2–4 weeks ahead from Sentinel-2 imagery and public
+      <span class="tag" data-i18n="p_stress_tag">Open Source</span>
+      <h3 data-i18n="p_stress_title">Crop Stress Prediction — Afghanistan / Netherlands / New Zealand</h3>
+      <p data-i18n="p_stress_body">Open-source pipeline predicting vegetation-stress risk 2–4 weeks ahead from Sentinel-2 imagery and public
       weather data, across 36 farm locations in three countries with very different agriculture. Random Forest and
       XGBoost, evaluated on a genuine 2023–2024 holdout (F1 0.41, 72% accuracy — real numbers, not rounded up), with
       SHAP explainability for every individual prediction and a live interactive dashboard.</p>
       <div class="stack">Python · Google Earth Engine · Random Forest · XGBoost · SHAP · Streamlit</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
     <button class="project-card" data-modal="agrisim">
-      <span class="tag">Machine Learning</span>
-      <h3>Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra</h3>
-      <p>Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for
+      <span class="tag" data-i18n="p_agrisim_tag">Machine Learning</span>
+      <h3 data-i18n="p_agrisim_title">Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra</h3>
+      <p data-i18n="p_agrisim_body">Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for
       early stress and disease-risk detection, reaching ~87% classification accuracy. Deployed a monitoring
       application used across multiple commercial farm sites, part of EU-funded innovation projects in Wageningen.</p>
-      <p class="result-line"><b>Result:</b> automated monitoring across multiple commercial farm sites with ~87% prediction accuracy, cutting manual field-checking time.</p>
+      <p class="result-line" data-i18n-html="p_agrisim_result"><b>Result:</b> automated monitoring across multiple commercial farm sites with ~87% prediction accuracy, cutting manual field-checking time.</p>
       <div class="stack">Python · scikit-learn · Feature engineering · Cross-validation · Remote sensing</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
     <button class="project-card" data-modal="circlefarming">
-      <span class="tag">IoT</span>
-      <h3>Sensor-Driven Monitoring — Circle Farming</h3>
-      <p>Developed IoT-based monitoring and real-time data workflows for controlled-environment (circular) farming,
+      <span class="tag" data-i18n="p_circle_tag">IoT</span>
+      <h3 data-i18n="p_circle_title">Sensor-Driven Monitoring — Circle Farming</h3>
+      <p data-i18n="p_circle_body">Developed IoT-based monitoring and real-time data workflows for controlled-environment (circular) farming,
       integrating live sensor streams into actionable insights and closed-loop optimisation of growing conditions.</p>
       <div class="stack">IoT pipelines · Real-time data · Sensor integration</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
     <button class="project-card" data-modal="fao">
-      <span class="tag">Policy &amp; Development</span>
-      <h3>FAO On-Farm Water Management — Afghanistan</h3>
-      <p>As FAO (UN) National Consultant, delivered food-security assessments and policy analysis; built a national
+      <span class="tag" data-i18n="p_fao_tag">Policy &amp; Development</span>
+      <h3 data-i18n="p_fao_title">FAO On-Farm Water Management — Afghanistan</h3>
+      <p data-i18n="p_fao_body">As FAO (UN) National Consultant, delivered food-security assessments and policy analysis; built a national
       database of agriculture and irrigation policies, strategies and laws. Coordinated FAO, government ministries
       and development partners. Selected onto the FAO UN Expert Roster.</p>
       <div class="stack">Policy analysis · M&amp;E · Multi-stakeholder coordination</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
     <button class="project-card" data-modal="mail">
-      <span class="tag">Leadership</span>
-      <h3>National Mechanization Services — Ministry of Agriculture (MAIL)</h3>
-      <p>Led a team of 15+ delivering agricultural mechanization services across all 34 Afghan provinces — machinery
+      <span class="tag" data-i18n="p_mail_tag">Leadership</span>
+      <h3 data-i18n="p_mail_title">National Mechanization Services — Ministry of Agriculture (MAIL)</h3>
+      <p data-i18n="p_mail_body">Led a team of 15+ delivering agricultural mechanization services across all 34 Afghan provinces — machinery
       deployment, redistribution and operator training, including conservation and zero-tillage practices.</p>
       <div class="stack">Programme leadership · Technology adoption · Training</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
     <button class="project-card" data-modal="ifa">
-      <span class="tag">Recognition</span>
-      <h3>IFA × Wageningen University &amp; Research Hackathon — Winner</h3>
-      <p>Won the 2026 hackathon on Nutrient Use Efficiency Tracking, applying data-driven modelling to real-world
+      <span class="tag" data-i18n="p_ifa_tag">Recognition</span>
+      <h3 data-i18n="p_ifa_title">IFA × Wageningen University &amp; Research Hackathon — Winner</h3>
+      <p data-i18n="p_ifa_body">Won the 2026 hackathon on Nutrient Use Efficiency Tracking, applying data-driven modelling to real-world
       agronomic decision-making challenges.</p>
       <div class="stack">Applied ML · Agronomic data</div>
-      <div class="expand-hint">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
   </div>
@@ -779,95 +794,95 @@
 
 <section id="experience">
   <div class="section-head reveal">
-    <span class="kicker">Career</span>
-    <h2>Experience</h2>
+    <span class="kicker" data-i18n="exp_kicker">Career</span>
+    <h2 data-i18n="exp_title">Experience</h2>
   </div>
   <div class="timeline reveal-stagger">
     <div class="tl-item">
-      <span class="role">Founder</span> — <span class="org">Alamzoi Consultancy, Netherlands</span>
+      <span class="role" data-i18n="exp1_role">Founder</span> — <span class="org">Alamzoi Consultancy, Netherlands</span>
       <span class="dates">2026 – Present</span>
-      <p>Registered independent consultancy delivering applied AI, machine-learning and data solutions to Dutch SMEs and development-sector clients.</p>
+      <p data-i18n="exp1_desc">Registered independent consultancy delivering applied AI, machine-learning and data solutions to Dutch SMEs and development-sector clients.</p>
     </div>
     <div class="tl-item">
-      <span class="role">Founder &amp; Lead Engineer</span> — <span class="org">ZaminAI</span>
+      <span class="role" data-i18n="exp2_role">Founder &amp; Lead Engineer</span> — <span class="org">ZaminAI</span>
       <span class="dates">2026 – Present</span>
-      <p>Full-stack AI platform processing live satellite data into field-level analytics, with a multilingual advisory layer.</p>
+      <p data-i18n="exp2_desc">Full-stack AI platform processing live satellite data into field-level analytics, with a multilingual advisory layer.</p>
     </div>
     <div class="tl-item">
-      <span class="role">Data Scientist</span> — <span class="org">Agrisim &amp; Rapagra, Wageningen</span>
+      <span class="role" data-i18n="exp3_role">Data Scientist</span> — <span class="org">Agrisim &amp; Rapagra, Wageningen</span>
       <span class="dates">Feb 2023 – Feb 2025</span>
-      <p>ML models for crop stress/disease detection (~87% accuracy); deployed monitoring app across commercial sites.</p>
+      <p data-i18n="exp3_desc">ML models for crop stress/disease detection (~87% accuracy); deployed monitoring app across commercial sites.</p>
     </div>
     <div class="tl-item">
-      <span class="role">AI &amp; Data Scientist (IoT/Sensors)</span> — <span class="org">Circle Farming</span>
+      <span class="role" data-i18n="exp4_role">AI &amp; Data Scientist (IoT/Sensors)</span> — <span class="org">Circle Farming</span>
       <span class="dates">2025</span>
-      <p>IoT-based monitoring and real-time data workflows for controlled-environment systems.</p>
+      <p data-i18n="exp4_desc">IoT-based monitoring and real-time data workflows for controlled-environment systems.</p>
     </div>
     <div class="tl-item">
-      <span class="role">Data Scientist &amp; Trainer</span> — <span class="org">Precision Agriculture Campus, Noord-Brabant</span>
+      <span class="role" data-i18n="exp5_role">Data Scientist &amp; Trainer</span> — <span class="org">Precision Agriculture Campus, Noord-Brabant</span>
       <span class="dates">Jul 2022 – Jan 2023</span>
-      <p>Python data-analysis pipelines and visualisations; trained 40+ professionals; contributed to EU project proposals.</p>
+      <p data-i18n="exp5_desc">Python data-analysis pipelines and visualisations; trained 40+ professionals; contributed to EU project proposals.</p>
     </div>
     <div class="tl-item">
-      <span class="role">Researcher (Data &amp; Remote Sensing)</span> — <span class="org">HAS University of Applied Sciences, Venlo</span>
+      <span class="role" data-i18n="exp6_role">Researcher (Data &amp; Remote Sensing)</span> — <span class="org">HAS University of Applied Sciences, Venlo</span>
       <span class="dates">Jan 2022 – Jul 2022</span>
-      <p>Processed and analysed large datasets to derive performance indicators.</p>
+      <p data-i18n="exp6_desc">Processed and analysed large datasets to derive performance indicators.</p>
     </div>
     <div class="tl-item">
-      <span class="role">FAO (UN) National Consultant — Mechanization Policy</span> — <span class="org">FAO, Kabul, Afghanistan</span>
+      <span class="role" data-i18n="exp7_role">FAO (UN) National Consultant — Mechanization Policy</span> — <span class="org">FAO, Kabul, Afghanistan</span>
       <span class="dates">Nov 2018 – Dec 2019</span>
-      <p>Policy analysis, food-security assessments, national policy database; selected onto FAO UN Expert Roster.</p>
+      <p data-i18n="exp7_desc">Policy analysis, food-security assessments, national policy database; selected onto FAO UN Expert Roster.</p>
     </div>
     <div class="tl-item">
-      <span class="role">Head of National Mechanization Services</span> — <span class="org">Ministry of Agriculture (MAIL), Afghanistan</span>
+      <span class="role" data-i18n="exp8_role">Head of National Mechanization Services</span> — <span class="org">Ministry of Agriculture (MAIL), Afghanistan</span>
       <span class="dates">2016 – 2018</span>
-      <p>Led national mechanization services (team of 15+) across all 34 provinces.</p>
+      <p data-i18n="exp8_desc">Led national mechanization services (team of 15+) across all 34 provinces.</p>
     </div>
   </div>
 </section>
 
 <section id="education" class="alt">
   <div class="section-head reveal">
-    <span class="kicker">Background</span>
-    <h2 style="border:none;padding-bottom:0;">Education &amp; Languages</h2>
+    <span class="kicker" data-i18n="edu_kicker">Background</span>
+    <h2 style="border:none;padding-bottom:0;" data-i18n="edu_title">Education &amp; Languages</h2>
   </div>
   <div class="two-col">
     <div class="reveal">
       <div class="edu-item">
-        <div class="deg">M.Tech, Agricultural &amp; Food Engineering (Farm Machinery &amp; Power)</div>
-        <div class="school">IIT Kharagpur, India · 2020–2022 · Nuffic-evaluated as equivalent to a Dutch wo master's, ref. C125446</div>
+        <div class="deg" data-i18n="edu1_deg">M.Tech, Agricultural &amp; Food Engineering (Farm Machinery &amp; Power)</div>
+        <div class="school" data-i18n="edu1_school">IIT Kharagpur, India · 2020–2022 · Nuffic-evaluated as equivalent to a Dutch wo master's, ref. C125446</div>
       </div>
       <div class="edu-item">
-        <div class="deg">B.Tech, Agricultural Engineering</div>
+        <div class="deg" data-i18n="edu2_deg">B.Tech, Agricultural Engineering</div>
         <div class="school">Don State Technical University, Russia · 2011–2016</div>
       </div>
       <div class="edu-item">
-        <div class="deg">JICA Knowledge Co-Creation Programme</div>
+        <div class="deg" data-i18n="edu3_deg">JICA Knowledge Co-Creation Programme</div>
         <div class="school">JICA Tsukuba, Japan · 2017</div>
       </div>
     </div>
     <div class="reveal">
       <div class="lang-list">
-        <span>English — C1</span>
-        <span>Dutch — B2</span>
-        <span>Dari — Native</span>
-        <span>Pashto — Native</span>
-        <span>Russian — B2</span>
-        <span>Hindi/Urdu — Proficient</span>
+        <span data-i18n="lang_en">English — C1</span>
+        <span data-i18n="lang_nl">Dutch — B2</span>
+        <span data-i18n="lang_prs">Dari — Native</span>
+        <span data-i18n="lang_ps">Pashto — Native</span>
+        <span data-i18n="lang_ru">Russian — B2</span>
+        <span data-i18n="lang_hi">Hindi/Urdu — Proficient</span>
       </div>
     </div>
   </div>
 </section>
 
 <section id="contact" class="contact-band reveal">
-  <h2>Let's work together</h2>
-  <p>Available for freelance and consultancy projects in AI, data science, machine learning and geospatial analytics.</p>
-  <a class="btn cta-audit-link" href="mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&amp;body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.">Book a Free 30-Minute Geospatial &amp; Data Audit</a>
+  <h2 data-i18n="contact_title">Let's work together</h2>
+  <p data-i18n="contact_body">Available for freelance and consultancy projects in AI, data science, machine learning and geospatial analytics.</p>
+  <a class="btn cta-audit-link" data-i18n="cta_audit" href="mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&amp;body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.">Book a Free 30-Minute Geospatial &amp; Data Audit</a>
   <a class="btn outline" href="mailto:maiwand@alamzoiconsultancy.com">maiwand@alamzoiconsultancy.com</a>
   <a class="btn outline" href="https://github.com/maiwandalamzoi" target="_blank" rel="noopener">GitHub</a>
 </section>
 
-<footer>
+<footer data-i18n-html="footer_text">
   © 2026 Alamzoi Consultancy — Leuth, Netherlands · KVK-registered (SBI 71120 &amp; 62200) · alamzoiconsultancy.com
 </footer>
 
@@ -936,6 +951,172 @@
     var BOOKING_CTA_URL = "mailto:maiwand@alamzoiconsultancy.com?subject=Free%2030-Minute%20Geospatial%20%26%20Data%20Audit&body=Hi%20Maiwand%2C%20I%27d%20like%20to%20book%20a%20free%2030-minute%20audit.";
     document.querySelectorAll('.cta-audit-link').forEach(function(el){ el.href = BOOKING_CTA_URL; });
   } catch(e) {}
+
+  /* ---------- Language toggle (EN / NL) ----------
+     Scope note: covers nav, hero, about, industries, skills, project CARD
+     PREVIEWS (title/summary/result line), experience, education, contact,
+     footer. The deep technical case-study MODAL bodies (Challenge/Approach/
+     Result narrative) are English-only for now -- a deliberate scoping
+     choice, not an oversight, flagged to the site owner. Dutch text below
+     is a solid draft; recommended a native-speaker review pass before
+     treating it as final client-facing copy. */
+  try {
+    var TRANSLATIONS = {
+      en: {
+        nav_about: "About", nav_skills: "Skills", nav_projects: "Projects",
+        nav_experience: "Experience", nav_contact: "Contact",
+        hero_eyebrow: "Available for consulting engagements",
+        hero_tagline: "Founder, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Solutions",
+        hero_value_prop: "I help AgriTech companies, water authorities and municipalities automate satellite data workflows — reducing manual analysis time from weeks to minutes and building production-ready AI tools.",
+        hero_location: "Leuth, Netherlands",
+        cta_audit: "Book a Free 30-Minute Geospatial &amp; Data Audit", cta_touch: "Get in touch", cta_projects: "See projects",
+        about_kicker: "Overview", about_title: "About",
+        about_lead: "I build the full pipeline — from raw satellite and sensor data to the model, the API and the live product a client's team actually uses — as an independent consultancy, not a single-hat freelancer.",
+        about_p1: "AI, data science and geospatial consultant with 7+ years building and deploying satellite-data, machine-learning and software systems for real production use. Founder of a KVK-registered technical consultancy (SBI 71120 &amp; 62200) delivering applied AI and data solutions to Dutch SMEs and international clients. Built and deployed two production platforms solo.",
+        about_p2: "Unusual engineering depth: an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation — Nuffic-evaluated as equivalent to a Dutch wo master's) combined with international programme and policy experience as a former FAO (UN) national consultant, now on the FAO UN Expert Roster. Comfortable owning the whole pipeline and communicating clearly to non-technical stakeholders.",
+        about_p3: "Based in Leuth (Gelderland, Arnhem-Nijmegen region) and available hybrid or on-location anywhere in the Netherlands for site visits, workshops and embedded project work. Particular focus on themes with active Dutch and EU funding and policy attention: nitrogen and drought monitoring, precision agriculture (Wageningen ecosystem), ESG &amp; CSRD reporting, and climate adaptation. Also available fully remote for EU and international engagements.",
+        industries_label: "Industries I work with:",
+        industry_1: "AgriTech &amp; Precision Agriculture", industry_2: "Climate, Energy &amp; ESG",
+        industry_3: "Urban Planning &amp; Smart Cities", industry_4: "Insurance &amp; Risk Analysis",
+        skills_kicker: "Capabilities", skills_title: "What I Can Do",
+        stat_years: "Years Experience", stat_platforms: "Platforms Deployed Solo",
+        stat_accuracy: "Model Accuracy (Crop Stress)", stat_farmers: "Smallholder Farmers Reachable",
+        skill1_title: "AI &amp; Machine Learning",
+        skill1_desc: "Python (Pandas, NumPy, scikit-learn), Random Forest, XGBoost, time series (ARIMA, Prophet), PyTorch foundations, LLM integration (Claude / Gemini APIs), prompt engineering.",
+        skill2_title: "Data &amp; Geospatial",
+        skill2_desc: "SQL, PostgreSQL, Power BI, Streamlit, Plotly, Google Earth Engine, QGIS, GeoPandas, Sentinel-2, NDVI/EVI analysis.",
+        skill3_title: "Engineering &amp; Deployment",
+        skill3_desc: "Flask, REST APIs, Git/GitHub, Docker, Microsoft Azure, Render, IoT &amp; sensor pipelines, CAD (SolidWorks, PRO/E).",
+        skill4_title: "Programme &amp; Policy",
+        skill4_desc: "Project Cycle Management, monitoring &amp; evaluation, policy analysis &amp; formulation, multi-stakeholder coordination, technical training.",
+        projects_kicker: "Selected Work", projects_title: "Projects &amp; Case Studies", view_case_study: "View case study",
+        p_zaminai_tag: "Flagship", p_zaminai_title: "ZaminAI — Satellite Agricultural Intelligence",
+        p_zaminai_body: "Designed and deployed a full-stack AI platform solo, turning live Sentinel-2 satellite data into field-level NDVI, water-stress and crop analytics. Built a multilingual AI advisory assistant (Claude / Gemini) answering farming questions in English, Dari and Pashto — free for 500M+ smallholder farmers lacking digital agricultural support. Collaboration with Wageningen University &amp; Research.",
+        p_zaminai_result: "<b>Result:</b> production platform live and free for 500M+ underserved smallholder farmers, built and deployed solo.",
+        p_stress_tag: "Open Source", p_stress_title: "Crop Stress Prediction — Afghanistan / Netherlands / New Zealand",
+        p_stress_body: "Open-source pipeline predicting vegetation-stress risk 2–4 weeks ahead from Sentinel-2 imagery and public weather data, across 36 farm locations in three countries with very different agriculture. Random Forest and XGBoost, evaluated on a genuine 2023–2024 holdout (F1 0.41, 72% accuracy — real numbers, not rounded up), with SHAP explainability for every individual prediction and a live interactive dashboard.",
+        p_agrisim_tag: "Machine Learning", p_agrisim_title: "Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra",
+        p_agrisim_body: "Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for early stress and disease-risk detection, reaching ~87% classification accuracy. Deployed a monitoring application used across multiple commercial farm sites, part of EU-funded innovation projects in Wageningen.",
+        p_agrisim_result: "<b>Result:</b> automated monitoring across multiple commercial farm sites with ~87% prediction accuracy, cutting manual field-checking time.",
+        p_circle_tag: "IoT", p_circle_title: "Sensor-Driven Monitoring — Circle Farming",
+        p_circle_body: "Developed IoT-based monitoring and real-time data workflows for controlled-environment (circular) farming, integrating live sensor streams into actionable insights and closed-loop optimisation of growing conditions.",
+        p_fao_tag: "Policy &amp; Development", p_fao_title: "FAO On-Farm Water Management — Afghanistan",
+        p_fao_body: "As FAO (UN) National Consultant, delivered food-security assessments and policy analysis; built a national database of agriculture and irrigation policies, strategies and laws. Coordinated FAO, government ministries and development partners. Selected onto the FAO UN Expert Roster.",
+        p_mail_tag: "Leadership", p_mail_title: "National Mechanization Services — Ministry of Agriculture (MAIL)",
+        p_mail_body: "Led a team of 15+ delivering agricultural mechanization services across all 34 Afghan provinces — machinery deployment, redistribution and operator training, including conservation and zero-tillage practices.",
+        p_ifa_tag: "Recognition", p_ifa_title: "IFA × Wageningen University &amp; Research Hackathon — Winner",
+        p_ifa_body: "Won the 2026 hackathon on Nutrient Use Efficiency Tracking, applying data-driven modelling to real-world agronomic decision-making challenges.",
+        exp_kicker: "Career", exp_title: "Experience",
+        exp1_role: "Founder", exp1_desc: "Registered independent consultancy delivering applied AI, machine-learning and data solutions to Dutch SMEs and development-sector clients.",
+        exp2_role: "Founder &amp; Lead Engineer", exp2_desc: "Full-stack AI platform processing live satellite data into field-level analytics, with a multilingual advisory layer.",
+        exp3_role: "Data Scientist", exp3_desc: "ML models for crop stress/disease detection (~87% accuracy); deployed monitoring app across commercial sites.",
+        exp4_role: "AI &amp; Data Scientist (IoT/Sensors)", exp4_desc: "IoT-based monitoring and real-time data workflows for controlled-environment systems.",
+        exp5_role: "Data Scientist &amp; Trainer", exp5_desc: "Python data-analysis pipelines and visualisations; trained 40+ professionals; contributed to EU project proposals.",
+        exp6_role: "Researcher (Data &amp; Remote Sensing)", exp6_desc: "Processed and analysed large datasets to derive performance indicators.",
+        exp7_role: "FAO (UN) National Consultant — Mechanization Policy", exp7_desc: "Policy analysis, food-security assessments, national policy database; selected onto FAO UN Expert Roster.",
+        exp8_role: "Head of National Mechanization Services", exp8_desc: "Led national mechanization services (team of 15+) across all 34 provinces.",
+        edu_kicker: "Background", edu_title: "Education &amp; Languages",
+        edu1_deg: "M.Tech, Agricultural &amp; Food Engineering (Farm Machinery &amp; Power)",
+        edu1_school: "IIT Kharagpur, India · 2020–2022 · Nuffic-evaluated as equivalent to a Dutch wo master's, ref. C125446",
+        edu2_deg: "B.Tech, Agricultural Engineering", edu3_deg: "JICA Knowledge Co-Creation Programme",
+        lang_en: "English — C1", lang_nl: "Dutch — B2", lang_prs: "Dari — Native", lang_ps: "Pashto — Native",
+        lang_ru: "Russian — B2", lang_hi: "Hindi/Urdu — Proficient",
+        contact_title: "Let's work together",
+        contact_body: "Available for freelance and consultancy projects in AI, data science, machine learning and geospatial analytics.",
+        footer_text: "© 2026 Alamzoi Consultancy — Leuth, Netherlands · KVK-registered (SBI 71120 &amp; 62200) · alamzoiconsultancy.com",
+      },
+      nl: {
+        nav_about: "Over mij", nav_skills: "Vaardigheden", nav_projects: "Projecten",
+        nav_experience: "Ervaring", nav_contact: "Contact",
+        hero_eyebrow: "Beschikbaar voor consultancyopdrachten",
+        hero_tagline: "Oprichter, Alamzoi Consultancy — AI, Data Science &amp; Geospatial Oplossingen",
+        hero_value_prop: "Ik help AgriTech-bedrijven, waterschappen en gemeenten satellietdata-workflows te automatiseren — waardoor handmatige analysetijd van weken naar minuten gaat, met productieklare AI-tools.",
+        hero_location: "Leuth, Nederland",
+        cta_audit: "Boek een Gratis Geospatial &amp; Data Audit van 30 Minuten", cta_touch: "Neem contact op", cta_projects: "Bekijk projecten",
+        about_kicker: "Overzicht", about_title: "Over mij",
+        about_lead: "Ik bouw de volledige pijplijn — van ruwe satelliet- en sensordata tot het model, de API en het live product dat het team van de klant daadwerkelijk gebruikt — als zelfstandig adviesbureau, niet als freelancer met één specialisme.",
+        about_p1: "AI-, data science- en geospatial-consultant met 7+ jaar ervaring in het bouwen en implementeren van satellietdata-, machine-learning- en softwaresystemen voor echt productiegebruik. Oprichter van een bij de KVK geregistreerd technisch adviesbureau (SBI 71120 &amp; 62200) dat toegepaste AI- en data-oplossingen levert aan Nederlandse mkb-bedrijven en internationale klanten. Twee productieplatforms zelfstandig gebouwd en uitgerold.",
+        about_p2: "Bijzondere technische diepgang: een M.Tech van IIT Kharagpur (werktuigbouwkunde, CAD, besturing &amp; instrumentatie — door Nuffic gewaardeerd als gelijkwaardig aan een Nederlandse wo-master) gecombineerd met internationale programma- en beleidservaring als voormalig FAO (VN) nationaal consultant, nu opgenomen in het FAO UN Expert Roster. Comfortabel met eigenaarschap van de volledige pijplijn en heldere communicatie naar niet-technische belanghebbenden.",
+        about_p3: "Gevestigd in Leuth (Gelderland, regio Arnhem-Nijmegen) en beschikbaar hybride of op locatie in heel Nederland voor bezoeken, workshops en projectwerk op locatie. Bijzondere focus op thema's met actieve Nederlandse en EU-aandacht voor financiering en beleid: stikstof- en droogtemonitoring, precisielandbouw (Wageningen-ecosysteem), ESG &amp; CSRD-rapportage, en klimaatadaptatie. Ook volledig op afstand beschikbaar voor EU- en internationale opdrachten.",
+        industries_label: "Sectoren waarin ik werk:",
+        industry_1: "AgriTech &amp; Precisielandbouw", industry_2: "Klimaat, Energie &amp; ESG",
+        industry_3: "Stedelijke Planning &amp; Smart Cities", industry_4: "Verzekeringen &amp; Risicoanalyse",
+        skills_kicker: "Vaardigheden", skills_title: "Wat Ik Kan",
+        stat_years: "Jaar Ervaring", stat_platforms: "Zelfstandig Uitgerolde Platforms",
+        stat_accuracy: "Modelnauwkeurigheid (Gewasstress)", stat_farmers: "Bereikbare Kleinschalige Boeren",
+        skill1_title: "AI &amp; Machine Learning",
+        skill1_desc: "Python (Pandas, NumPy, scikit-learn), Random Forest, XGBoost, tijdreeksen (ARIMA, Prophet), PyTorch-basis, LLM-integratie (Claude / Gemini API's), prompt engineering.",
+        skill2_title: "Data &amp; Geospatial",
+        skill2_desc: "SQL, PostgreSQL, Power BI, Streamlit, Plotly, Google Earth Engine, QGIS, GeoPandas, Sentinel-2, NDVI/EVI-analyse.",
+        skill3_title: "Engineering &amp; Implementatie",
+        skill3_desc: "Flask, REST API's, Git/GitHub, Docker, Microsoft Azure, Render, IoT- &amp; sensorpijplijnen, CAD (SolidWorks, PRO/E).",
+        skill4_title: "Programma &amp; Beleid",
+        skill4_desc: "Project Cycle Management, monitoring &amp; evaluatie, beleidsanalyse &amp; -formulering, coördinatie tussen meerdere belanghebbenden, technische training.",
+        projects_kicker: "Uitgelicht Werk", projects_title: "Projecten &amp; Praktijkcases", view_case_study: "Bekijk praktijkcase",
+        p_zaminai_tag: "Vlaggenschip", p_zaminai_title: "ZaminAI — Satelliet Landbouwintelligentie",
+        p_zaminai_body: "Zelfstandig een full-stack AI-platform ontworpen en uitgerold dat live Sentinel-2-satellietdata omzet in NDVI-, waterstress- en gewasanalyses op perceelniveau. Een meertalige AI-adviesassistent (Claude / Gemini) gebouwd die landbouwvragen beantwoordt in het Engels, Dari en Pashto — gratis voor 500M+ kleinschalige boeren zonder toegang tot digitale landbouwondersteuning. Samenwerking met Wageningen University &amp; Research.",
+        p_zaminai_result: "<b>Resultaat:</b> productieplatform live en gratis voor 500M+ onderbediende kleinschalige boeren, zelfstandig gebouwd en uitgerold.",
+        p_stress_tag: "Open Source", p_stress_title: "Gewasstressvoorspelling — Afghanistan / Nederland / Nieuw-Zeeland",
+        p_stress_body: "Open-source pijplijn die vegetatiestressrisico 2–4 weken vooruit voorspelt op basis van Sentinel-2-beelden en publieke weerdata, over 36 landbouwlocaties in drie landen met zeer verschillende landbouw. Random Forest en XGBoost, geëvalueerd op een echte 2023–2024-testset (F1 0,41, 72% nauwkeurigheid — echte cijfers, niet afgerond), met SHAP-uitlegbaarheid voor elke individuele voorspelling en een live interactief dashboard.",
+        p_agrisim_tag: "Machine Learning", p_agrisim_title: "Gewasstress- &amp; Ziektedetectie — Agrisim &amp; Rapagra",
+        p_agrisim_body: "ML-modellen (Random Forest, XGBoost) gebouwd en gevalideerd op multispectrale, meteorologische en velddata voor vroege stress- en ziekterisicodetectie, met ~87% classificatienauwkeurigheid. Een monitoringapplicatie uitgerold op meerdere commerciële landbouwlocaties, onderdeel van EU-gefinancierde innovatieprojecten in Wageningen.",
+        p_agrisim_result: "<b>Resultaat:</b> geautomatiseerde monitoring op meerdere commerciële landbouwlocaties met ~87% voorspellingsnauwkeurigheid, waardoor handmatige veldcontrole afneemt.",
+        p_circle_tag: "IoT", p_circle_title: "Sensorgestuurde Monitoring — Circle Farming",
+        p_circle_body: "IoT-gebaseerde monitoring en real-time dataworkflows ontwikkeld voor gecontroleerde-omgevingslandbouw (circulair), waarbij live sensordata wordt omgezet in bruikbare inzichten en closed-loop optimalisatie van groeicondities.",
+        p_fao_tag: "Beleid &amp; Ontwikkeling", p_fao_title: "FAO On-Farm Waterbeheer — Afghanistan",
+        p_fao_body: "Als FAO (VN) nationaal consultant voedselzekerheidsbeoordelingen en beleidsanalyses uitgevoerd; een nationale database opgebouwd van landbouw- en irrigatiebeleid, -strategieën en -wetgeving. Coördinatie tussen FAO, overheidsministeries en ontwikkelingspartners. Geselecteerd voor het FAO UN Expert Roster.",
+        p_mail_tag: "Leiderschap", p_mail_title: "Nationale Mechanisatiediensten — Ministerie van Landbouw (MAIL)",
+        p_mail_body: "Een team van 15+ aangestuurd bij landbouwmechanisatiediensten in alle 34 Afghaanse provincies — machine-inzet, herverdeling en operatorstraining, inclusief conservation- en no-tillage-praktijken.",
+        p_ifa_tag: "Erkenning", p_ifa_title: "IFA × Wageningen University &amp; Research Hackathon — Winnaar",
+        p_ifa_body: "De hackathon van 2026 gewonnen over Nutrient Use Efficiency Tracking, met toepassing van data-gedreven modellering op praktijkgerichte agronomische besluitvorming.",
+        exp_kicker: "Loopbaan", exp_title: "Ervaring",
+        exp1_role: "Oprichter", exp1_desc: "Geregistreerd zelfstandig adviesbureau dat toegepaste AI-, machine-learning- en data-oplossingen levert aan Nederlandse mkb-bedrijven en klanten in de ontwikkelingssector.",
+        exp2_role: "Oprichter &amp; Lead Engineer", exp2_desc: "Full-stack AI-platform dat live satellietdata verwerkt tot analyses op perceelniveau, met een meertalige adviesfunctie.",
+        exp3_role: "Data Scientist", exp3_desc: "ML-modellen voor gewasstress-/ziektedetectie (~87% nauwkeurigheid); monitoringapp uitgerold op commerciële locaties.",
+        exp4_role: "AI &amp; Data Scientist (IoT/Sensoren)", exp4_desc: "IoT-gebaseerde monitoring en real-time dataworkflows voor gecontroleerde-omgevingssystemen.",
+        exp5_role: "Data Scientist &amp; Trainer", exp5_desc: "Python-data-analysepijplijnen en visualisaties; 40+ professionals opgeleid; bijgedragen aan EU-projectvoorstellen.",
+        exp6_role: "Onderzoeker (Data &amp; Remote Sensing)", exp6_desc: "Grote datasets verwerkt en geanalyseerd om prestatie-indicatoren af te leiden.",
+        exp7_role: "FAO (VN) Nationaal Consultant — Mechanisatiebeleid", exp7_desc: "Beleidsanalyse, voedselzekerheidsbeoordelingen, nationale beleidsdatabase; geselecteerd voor FAO UN Expert Roster.",
+        exp8_role: "Hoofd Nationale Mechanisatiediensten", exp8_desc: "Nationale mechanisatiediensten geleid (team van 15+) in alle 34 provincies.",
+        edu_kicker: "Achtergrond", edu_title: "Opleiding &amp; Talen",
+        edu1_deg: "M.Tech, Landbouw- &amp; Voedseltechniek (Landbouwmachines &amp; Aandrijving)",
+        edu1_school: "IIT Kharagpur, India · 2020–2022 · door Nuffic gewaardeerd als gelijkwaardig aan een Nederlandse wo-master, ref. C125446",
+        edu2_deg: "B.Tech, Landbouwtechniek", edu3_deg: "JICA Knowledge Co-Creation Programma",
+        lang_en: "Engels — C1", lang_nl: "Nederlands — B2", lang_prs: "Dari — Moedertaal", lang_ps: "Pashto — Moedertaal",
+        lang_ru: "Russisch — B2", lang_hi: "Hindi/Urdu — Vergevorderd",
+        contact_title: "Laten we samenwerken",
+        contact_body: "Beschikbaar voor freelance- en adviesopdrachten op het gebied van AI, data science, machine learning en geospatial analytics.",
+        footer_text: "© 2026 Alamzoi Consultancy — Leuth, Nederland · KVK-geregistreerd (SBI 71120 &amp; 62200) · alamzoiconsultancy.com",
+      },
+    };
+
+    var langToggle = document.getElementById('lang-toggle');
+    var currentLang = 'en';
+    try { currentLang = localStorage.getItem('lang') || 'en'; } catch(e){}
+
+    function applyLanguage(lang){
+      var dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+        var key = el.getAttribute('data-i18n-html');
+        if(dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      document.documentElement.setAttribute('lang', lang);
+      if(langToggle) langToggle.textContent = lang === 'en' ? 'NL' : 'EN'; // shows the language you'd SWITCH TO
+      currentLang = lang;
+      try { localStorage.setItem('lang', lang); } catch(e){}
+    }
+
+    if(langToggle){
+      langToggle.addEventListener('click', function(){
+        applyLanguage(currentLang === 'en' ? 'nl' : 'en');
+      });
+    }
+    applyLanguage(currentLang);
+  } catch(e) { /* isolated: a translation bug should never take down the rest of the page */ }
 
   /* ---------- Theme toggle ---------- */
   var root = document.documentElement;
