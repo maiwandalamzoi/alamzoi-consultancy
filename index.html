@@ -514,6 +514,10 @@
   .project-card .result-line b{color:var(--accent);}
 
   .industries-line{margin-top:22px;}
+  .industries-grid{grid-template-columns:repeat(4,1fr);}
+  .industry-card p{font-size:.85rem;}
+  @media (max-width:900px){.industries-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.industries-grid{grid-template-columns:1fr;}}
   .industries-label{
     display:block;font-size:.76rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
     color:var(--accent);margin-bottom:10px;
@@ -639,12 +643,28 @@
     </p>
 
     <div class="industries-line">
-      <span class="industries-label" data-i18n="industries_label">Industries I work with:</span>
-      <div class="lang-list industries-list">
-        <span data-i18n="industry_1">AgriTech &amp; Precision Agriculture</span>
-        <span data-i18n="industry_2">Climate, Energy &amp; ESG</span>
-        <span data-i18n="industry_3">Urban Planning &amp; Smart Cities</span>
-        <span data-i18n="industry_4">Insurance &amp; Risk Analysis</span>
+      <span class="industries-label" data-i18n="industries_label">Industries I work with</span>
+      <div class="skills-grid industries-grid reveal-stagger">
+        <div class="skill-card industry-card">
+          <div class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg></div>
+          <h4 data-i18n="industry_1">AgriTech &amp; Precision Agriculture</h4>
+          <p data-i18n="industry_1_desc">Satellite crop monitoring, stress/yield prediction, and precision-farming data pipelines.</p>
+        </div>
+        <div class="skill-card industry-card">
+          <div class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h4 data-i18n="industry_2">Climate, Energy &amp; ESG</h4>
+          <p data-i18n="industry_2_desc">Flood, drought, heat and subsidence risk data; CSRD-ready climate reporting.</p>
+        </div>
+        <div class="skill-card industry-card">
+          <div class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="11" width="4" height="10"/><rect x="11" y="6" width="4" height="15"/><rect x="17" y="14" width="4" height="7"/></svg></div>
+          <h4 data-i18n="industry_3">Urban Planning &amp; Smart Cities</h4>
+          <p data-i18n="industry_3_desc">Geospatial analytics for land use, mobility and climate-adaptive planning.</p>
+        </div>
+        <div class="skill-card industry-card">
+          <div class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h4 data-i18n="industry_4">Insurance &amp; Risk Analysis</h4>
+          <p data-i18n="industry_4_desc">Location-based risk scoring built on real government climate and hazard data.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -977,9 +997,13 @@
         about_p1: "AI, data science and geospatial consultant with 7+ years building and deploying satellite-data, machine-learning and software systems for real production use. Founder of a KVK-registered technical consultancy (SBI 71120 &amp; 62200) delivering applied AI and data solutions to Dutch SMEs and international clients. Built and deployed two production platforms solo.",
         about_p2: "Unusual engineering depth: an M.Tech from IIT Kharagpur (machine design, CAD, control &amp; instrumentation — Nuffic-evaluated as equivalent to a Dutch wo master's) combined with international programme and policy experience as a former FAO (UN) national consultant, now on the FAO UN Expert Roster. Comfortable owning the whole pipeline and communicating clearly to non-technical stakeholders.",
         about_p3: "Based in Leuth (Gelderland, Arnhem-Nijmegen region) and available hybrid or on-location anywhere in the Netherlands for site visits, workshops and embedded project work. Particular focus on themes with active Dutch and EU funding and policy attention: nitrogen and drought monitoring, precision agriculture (Wageningen ecosystem), ESG &amp; CSRD reporting, and climate adaptation. Also available fully remote for EU and international engagements.",
-        industries_label: "Industries I work with:",
+        industries_label: "Industries I work with",
         industry_1: "AgriTech &amp; Precision Agriculture", industry_2: "Climate, Energy &amp; ESG",
         industry_3: "Urban Planning &amp; Smart Cities", industry_4: "Insurance &amp; Risk Analysis",
+        industry_1_desc: "Satellite crop monitoring, stress/yield prediction, and precision-farming data pipelines.",
+        industry_2_desc: "Flood, drought, heat and subsidence risk data; CSRD-ready climate reporting.",
+        industry_3_desc: "Geospatial analytics for land use, mobility and climate-adaptive planning.",
+        industry_4_desc: "Location-based risk scoring built on real government climate and hazard data.",
         skills_kicker: "Capabilities", skills_title: "What I Can Do",
         stat_years: "Years Experience", stat_platforms: "Platforms Deployed Solo",
         stat_accuracy: "Model Accuracy (Crop Stress)", stat_farmers: "Smallholder Farmers Reachable",
@@ -1040,9 +1064,13 @@
         about_p1: "AI-, data science- en geospatial-consultant met 7+ jaar ervaring in het bouwen en implementeren van satellietdata-, machine-learning- en softwaresystemen voor echt productiegebruik. Oprichter van een bij de KVK geregistreerd technisch adviesbureau (SBI 71120 &amp; 62200) dat toegepaste AI- en data-oplossingen levert aan Nederlandse mkb-bedrijven en internationale klanten. Twee productieplatforms zelfstandig gebouwd en uitgerold.",
         about_p2: "Bijzondere technische diepgang: een M.Tech van IIT Kharagpur (werktuigbouwkunde, CAD, besturing &amp; instrumentatie — door Nuffic gewaardeerd als gelijkwaardig aan een Nederlandse wo-master) gecombineerd met internationale programma- en beleidservaring als voormalig FAO (VN) nationaal consultant, nu opgenomen in het FAO UN Expert Roster. Comfortabel met eigenaarschap van de volledige pijplijn en heldere communicatie naar niet-technische belanghebbenden.",
         about_p3: "Gevestigd in Leuth (Gelderland, regio Arnhem-Nijmegen) en beschikbaar hybride of op locatie in heel Nederland voor bezoeken, workshops en projectwerk op locatie. Bijzondere focus op thema's met actieve Nederlandse en EU-aandacht voor financiering en beleid: stikstof- en droogtemonitoring, precisielandbouw (Wageningen-ecosysteem), ESG &amp; CSRD-rapportage, en klimaatadaptatie. Ook volledig op afstand beschikbaar voor EU- en internationale opdrachten.",
-        industries_label: "Sectoren waarin ik werk:",
+        industries_label: "Sectoren waarin ik werk",
         industry_1: "AgriTech &amp; Precisielandbouw", industry_2: "Klimaat, Energie &amp; ESG",
         industry_3: "Stedelijke Planning &amp; Smart Cities", industry_4: "Verzekeringen &amp; Risicoanalyse",
+        industry_1_desc: "Satellietmonitoring van gewassen, stress-/opbrengstvoorspelling en data-pijplijnen voor precisielandbouw.",
+        industry_2_desc: "Overstromings-, droogte-, hitte- en bodemdalingsrisico's; CSRD-klare klimaatrapportage.",
+        industry_3_desc: "Geospatial analyses voor ruimtegebruik, mobiliteit en klimaatadaptieve planning.",
+        industry_4_desc: "Locatiegebaseerde risicoscores op basis van echte overheidsdata over klimaat en gevaren.",
         skills_kicker: "Vaardigheden", skills_title: "Wat Ik Kan",
         stat_years: "Jaar Ervaring", stat_platforms: "Zelfstandig Uitgerolde Platforms",
         stat_accuracy: "Modelnauwkeurigheid (Gewasstress)", stat_farmers: "Bereikbare Kleinschalige Boeren",
