@@ -762,6 +762,18 @@
       <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
+    <button class="project-card" data-modal="climaterisk">
+      <span class="tag" data-i18n="p_climate_tag">Open Source</span>
+      <h3 data-i18n="p_climate_title">Netherlands Climate Risk &amp; Nitrogen Dashboard</h3>
+      <p data-i18n="p_climate_body">Open-source dashboard covering flood, drought, heat, land-subsidence and nitrogen-deposition risk for 34
+      locations across the Netherlands, built entirely on official Dutch government data (Climate Impact Atlas,
+      RIVM GCN/GDN) — no modeling, exactly what the government's own services report, with the same categories
+      and units as their official legends.</p>
+      <p class="result-line" data-i18n-html="p_climate_result"><b>Result:</b> Nijmegen shows the highest nitrogen deposition of all 34 locations, and agriculture (NHx) outweighs traffic (NOy) everywhere — matching the real Dutch nitrogen-crisis picture.</p>
+      <div class="stack">Python · OGC WMS/GetFeatureInfo · Streamlit · Folium</div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </button>
+
     <button class="project-card" data-modal="agrisim">
       <span class="tag" data-i18n="p_agrisim_tag">Machine Learning</span>
       <h3 data-i18n="p_agrisim_title">Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra</h3>
@@ -1021,6 +1033,9 @@
         p_zaminai_result: "<b>Result:</b> live, publicly explorable MVP at zaminai.org, built and deployed solo — aimed at closing the digital-agriculture information gap for 500M+ underserved smallholder farmers.",
         p_stress_tag: "Open Source", p_stress_title: "Crop Stress Prediction — Afghanistan / Netherlands / New Zealand",
         p_stress_body: "Open-source pipeline predicting vegetation-stress risk 2–4 weeks ahead from Sentinel-2 imagery and public weather data, across 36 farm locations in three countries with very different agriculture. Random Forest and XGBoost, evaluated on a genuine 2023–2024 holdout (F1 0.41, 72% accuracy — real numbers, not rounded up), with SHAP explainability for every individual prediction and a live interactive dashboard.",
+        p_climate_tag: "Open Source", p_climate_title: "Netherlands Climate Risk &amp; Nitrogen Dashboard",
+        p_climate_body: "Open-source dashboard covering flood, drought, heat, land-subsidence and nitrogen-deposition risk for 34 locations across the Netherlands, built entirely on official Dutch government data (Climate Impact Atlas, RIVM GCN/GDN) — no modeling, exactly what the government's own services report, with the same categories and units as their official legends.",
+        p_climate_result: "<b>Result:</b> Nijmegen shows the highest nitrogen deposition of all 34 locations, and agriculture (NHx) outweighs traffic (NOy) everywhere — matching the real Dutch nitrogen-crisis picture.",
         p_agrisim_tag: "Machine Learning", p_agrisim_title: "Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra",
         p_agrisim_body: "Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for early stress and disease-risk detection, reaching ~87% classification accuracy. Deployed a monitoring application used across multiple commercial farm sites, part of EU-funded innovation projects in Wageningen.",
         p_agrisim_result: "<b>Result:</b> automated monitoring across multiple commercial farm sites with ~87% prediction accuracy, cutting manual field-checking time.",
@@ -1088,6 +1103,9 @@
         p_zaminai_result: "<b>Resultaat:</b> live, publiek te verkennen MVP op zaminai.org, zelfstandig gebouwd en uitgerold — gericht op het dichten van de digitale-landbouwinformatiekloof voor 500M+ onderbediende kleinschalige boeren.",
         p_stress_tag: "Open Source", p_stress_title: "Gewasstressvoorspelling — Afghanistan / Nederland / Nieuw-Zeeland",
         p_stress_body: "Open-source pijplijn die vegetatiestressrisico 2–4 weken vooruit voorspelt op basis van Sentinel-2-beelden en publieke weerdata, over 36 landbouwlocaties in drie landen met zeer verschillende landbouw. Random Forest en XGBoost, geëvalueerd op een echte 2023–2024-testset (F1 0,41, 72% nauwkeurigheid — echte cijfers, niet afgerond), met SHAP-uitlegbaarheid voor elke individuele voorspelling en een live interactief dashboard.",
+        p_climate_tag: "Open Source", p_climate_title: "Nederlands Klimaatrisico- &amp; Stikstofdashboard",
+        p_climate_body: "Open-source dashboard met overstromings-, droogte-, hitte-, bodemdalings- en stikstofdepositierisico voor 34 locaties in heel Nederland, volledig gebaseerd op officiële Nederlandse overheidsdata (Klimaateffectatlas, RIVM GCN/GDN) — geen modellering, precies wat de overheidsdiensten zelf rapporteren, met dezelfde categorieën en eenheden als hun officiële legenda's.",
+        p_climate_result: "<b>Resultaat:</b> Nijmegen heeft de hoogste stikstofdepositie van alle 34 locaties, en landbouw (NHx) overtreft overal het verkeer (NOy) — precies het beeld van de Nederlandse stikstofcrisis.",
         p_agrisim_tag: "Machine Learning", p_agrisim_title: "Gewasstress- &amp; Ziektedetectie — Agrisim &amp; Rapagra",
         p_agrisim_body: "ML-modellen (Random Forest, XGBoost) gebouwd en gevalideerd op multispectrale, meteorologische en velddata voor vroege stress- en ziekterisicodetectie, met ~87% classificatienauwkeurigheid. Een monitoringapplicatie uitgerold op meerdere commerciële landbouwlocaties, onderdeel van EU-gefinancierde innovatieprojecten in Wageningen.",
         p_agrisim_result: "<b>Resultaat:</b> geautomatiseerde monitoring op meerdere commerciële landbouwlocaties met ~87% voorspellingsnauwkeurigheid, waardoor handmatige veldcontrole afneemt.",
@@ -1248,6 +1266,18 @@
       links: [
         { href: 'https://github.com/maiwandalamzoi/crop-stress-prediction', label: 'View code on GitHub →' },
         { href: 'https://vxc5hih7hibacl6cvhjxry.streamlit.app/', label: 'Live dashboard →' }
+      ]
+    },
+    climaterisk: {
+      tag: 'Open Source',
+      title: 'Netherlands Climate Risk &amp; Nitrogen Dashboard',
+      body: '<p>An open-source dashboard turning official Dutch government risk data into a single queryable, explorable tool &mdash; no modeling or prediction, just the government&rsquo;s own numbers made accessible.</p>' +
+        '<h4>Challenge</h4><p>Flood, drought, heat, subsidence and nitrogen deposition data all matter to Dutch insurers, municipalities and ESG reporting &mdash; but each lives in a separate, Dutch-only, hard-to-query government map service with no unified interface.</p>' +
+        '<h4>Approach</h4><ul><li>Queried the official Climate Impact Atlas WMS service for flood depth (2 probability scenarios), drought stress (current + 2050), urban heat island, and land subsidence (2050/2100), across 34 locations nationwide.</li><li>Found and integrated RIVM&rsquo;s official GCN/GDN nitrogen deposition service by intercepting the real network requests of their own map viewer &mdash; the exact endpoint and layer names aren&rsquo;t published in their documentation.</li><li>Pulled every category threshold and unit verbatim from each layer&rsquo;s own official legend, and found/handled 4 distinct nodata sentinel values empirically rather than guessing.</li><li>Built an interactive Streamlit dashboard: map colored by any of 12 risk layers, full data table, and a documented &ldquo;About the data&rdquo; tab.</li></ul>' +
+        '<h4>Result</h4><p>12 real government risk layers, 34 locations, zero invented numbers. Nijmegen shows the highest nitrogen deposition nationally, and agriculture (NHx) outweighs traffic (NOy) at every single location &mdash; a real, verifiable finding matching the well-known Dutch nitrogen-crisis picture.</p>' +
+        '<div class="stack-line">Python · OGC WMS/GetFeatureInfo · Streamlit · Folium</div>',
+      links: [
+        { href: 'https://github.com/maiwandalamzoi/nl-climate-risk-dashboard', label: 'View code on GitHub →' }
       ]
     },
     agrisim: {
