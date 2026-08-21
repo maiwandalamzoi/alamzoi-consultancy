@@ -786,6 +786,18 @@
       <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </button>
 
+    <button class="project-card" data-modal="ghgcalc">
+      <span class="tag" data-i18n="p_ghg_tag">Open Source</span>
+      <h3 data-i18n="p_ghg_title">Netherlands Scope 1+2 Emissions Calculator</h3>
+      <p data-i18n="p_ghg_body">Open-source Scope 1+2 GHG calculator built on official Dutch emission factors
+      (co2emissiefactoren.nl — the standard reference for CO2-Prestatieladder/CSRD reporting), not a generic
+      international substitute. Enter real fuel and electricity data, get a real emissions estimate, every number
+      traceable to its official source.</p>
+      <p class="result-line" data-i18n-html="p_ghg_result"><b>Result:</b> verified real calculation — 1,000 litres of petrol + 500 kWh grey electricity = 3,300.5 kg CO2e, checked by hand against the app's output.</p>
+      <div class="stack">Python · Pandas · Streamlit</div>
+      <div class="expand-hint"><span data-i18n="view_case_study">View case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </button>
+
     <button class="project-card" data-modal="agrisim">
       <span class="tag" data-i18n="p_agrisim_tag">Machine Learning</span>
       <h3 data-i18n="p_agrisim_title">Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra</h3>
@@ -1068,6 +1080,9 @@
         p_climate_tag: "Open Source", p_climate_title: "Netherlands Climate Risk &amp; Nitrogen Dashboard",
         p_climate_body: "Open-source dashboard covering flood, drought, heat, land-subsidence and nitrogen-deposition risk for 34 locations across the Netherlands, built entirely on official Dutch government data (Climate Impact Atlas, RIVM GCN/GDN) — no modeling, exactly what the government's own services report, with the same categories and units as their official legends.",
         p_climate_result: "<b>Result:</b> Nijmegen shows the highest nitrogen deposition of all 34 locations, and agriculture (NHx) outweighs traffic (NOy) everywhere — matching the real Dutch nitrogen-crisis picture.",
+        p_ghg_tag: "Open Source", p_ghg_title: "Netherlands Scope 1+2 Emissions Calculator",
+        p_ghg_body: "Open-source Scope 1+2 GHG calculator built on official Dutch emission factors (co2emissiefactoren.nl — the standard reference for CO2-Prestatieladder/CSRD reporting), not a generic international substitute. Enter real fuel and electricity data, get a real emissions estimate, every number traceable to its official source.",
+        p_ghg_result: "<b>Result:</b> verified real calculation — 1,000 litres of petrol + 500 kWh grey electricity = 3,300.5 kg CO2e, checked by hand against the app's output.",
         p_agrisim_tag: "Machine Learning", p_agrisim_title: "Crop Stress &amp; Disease Detection — Agrisim &amp; Rapagra",
         p_agrisim_body: "Built and validated ML models (Random Forest, XGBoost) on multispectral, meteorological and field data for early stress and disease-risk detection, reaching ~87% classification accuracy. Deployed a monitoring application used across multiple commercial farm sites, part of EU-funded innovation projects in Wageningen.",
         p_agrisim_result: "<b>Result:</b> automated monitoring across multiple commercial farm sites with ~87% prediction accuracy, cutting manual field-checking time.",
@@ -1146,6 +1161,9 @@
         p_climate_tag: "Open Source", p_climate_title: "Nederlands Klimaatrisico- &amp; Stikstofdashboard",
         p_climate_body: "Open-source dashboard met overstromings-, droogte-, hitte-, bodemdalings- en stikstofdepositierisico voor 34 locaties in heel Nederland, volledig gebaseerd op officiële Nederlandse overheidsdata (Klimaateffectatlas, RIVM GCN/GDN) — geen modellering, precies wat de overheidsdiensten zelf rapporteren, met dezelfde categorieën en eenheden als hun officiële legenda's.",
         p_climate_result: "<b>Resultaat:</b> Nijmegen heeft de hoogste stikstofdepositie van alle 34 locaties, en landbouw (NHx) overtreft overal het verkeer (NOy) — precies het beeld van de Nederlandse stikstofcrisis.",
+        p_ghg_tag: "Open Source", p_ghg_title: "Nederlandse Scope 1+2 Emissiecalculator",
+        p_ghg_body: "Open-source Scope 1+2 GHG-calculator gebouwd op officiële Nederlandse emissiefactoren (co2emissiefactoren.nl — de standaardreferentie voor CO2-Prestatieladder/CSRD-rapportage), geen algemene internationale vervanging. Voer echte brandstof- en elektriciteitsdata in, krijg een echte emissieschatting, elk getal herleidbaar naar de officiële bron.",
+        p_ghg_result: "<b>Resultaat:</b> geverifieerde echte berekening — 1.000 liter benzine + 500 kWh grijze stroom = 3.300,5 kg CO2e, handmatig gecontroleerd tegen de uitvoer van de app.",
         p_agrisim_tag: "Machine Learning", p_agrisim_title: "Gewasstress- &amp; Ziektedetectie — Agrisim &amp; Rapagra",
         p_agrisim_body: "ML-modellen (Random Forest, XGBoost) gebouwd en gevalideerd op multispectrale, meteorologische en velddata voor vroege stress- en ziekterisicodetectie, met ~87% classificatienauwkeurigheid. Een monitoringapplicatie uitgerold op meerdere commerciële landbouwlocaties, onderdeel van EU-gefinancierde innovatieprojecten in Wageningen.",
         p_agrisim_result: "<b>Resultaat:</b> geautomatiseerde monitoring op meerdere commerciële landbouwlocaties met ~87% voorspellingsnauwkeurigheid, waardoor handmatige veldcontrole afneemt.",
@@ -1322,6 +1340,18 @@
         '<div class="stack-line">Python · OGC WMS/GetFeatureInfo · Streamlit · Folium</div>',
       links: [
         { href: 'https://github.com/maiwandalamzoi/nl-climate-risk-dashboard', label: 'View code on GitHub →' }
+      ]
+    },
+    ghgcalc: {
+      tag: 'Open Source',
+      title: 'Netherlands Scope 1+2 Emissions Calculator',
+      body: '<p>An open-source calculator turning real company activity data (fuel used, electricity purchased) into a real Scope 1+2 GHG emissions estimate, using the same official factors Dutch companies use for CO2-Prestatieladder/CSRD reporting.</p>' +
+        '<h4>Challenge</h4><p>CSRD is making GHG Protocol Scope 1-2-3 reporting mandatory for a growing number of EU companies, cascading down the supply chain to SMEs. Scope 1+2 is the tractable starting point &mdash; but the free international factor set (UK DEFRA) uses a UK-specific electricity grid mix that gives the wrong answer for a Dutch company.</p>' +
+        '<h4>Approach</h4><ul><li>Found and parsed the real, official Dutch reference factor list from co2emissiefactoren.nl (Milieu Centraal, Stichting Stimular, SKAO, Connekt, Dutch government) &mdash; not a generic substitute.</li><li>The source file&rsquo;s layout is genuinely inconsistent between sections; iterated the parser against the real downloaded file until every category appeared with correct values, catching and fixing two real bugs along the way (documented in the repo).</li><li>Built a Streamlit calculator: pick fuel/energy type, enter a real quantity, get a Scope 1+2 breakdown with every factor traceable to its official source.</li></ul>' +
+        '<h4>Result</h4><p>63 real emission factors, a verified-by-hand calculation (1,000L petrol + 500kWh grey electricity = 3,300.5 kg CO2e), and an explicit, undisguised limitation: Scope 3 is not included &mdash; stated plainly in the app, not sold as a full CSRD audit tool.</p>' +
+        '<div class="stack-line">Python · Pandas · Streamlit</div>',
+      links: [
+        { href: 'https://github.com/maiwandalamzoi/nl-scope12-emissions-calculator', label: 'View code on GitHub →' }
       ]
     },
     agrisim: {
