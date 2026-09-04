@@ -29,6 +29,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
 <style>
   :root{
     /* Earthy palette -- exact tokens, used consistently */
@@ -300,6 +302,59 @@
   .about-body p.lead{font-size:1.06rem;color:var(--text);font-weight:500;}
   .two-col{display:grid;grid-template-columns:1.2fr .8fr;gap:44px;margin-top:36px;}
   @media (max-width:800px){.two-col{grid-template-columns:1fr;}}
+
+  /* ---------- Footprint map ---------- */
+  .map-block{margin:36px 0 8px;}
+  .map-block .map-label{font-size:.95rem;color:var(--soil);font-weight:600;margin:0 0 4px;font-family:'Fraunces',serif;}
+  .map-block .map-sub{font-size:.86rem;color:var(--text-soft);margin-bottom:14px;max-width:680px;}
+  .map-layer-toggle{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+  .map-layer-btn{
+    background:var(--card);border:1px solid var(--border);border-radius:5px;padding:8px 14px;
+    font-size:.84rem;font-weight:500;color:var(--text-soft);cursor:pointer;font-family:inherit;
+  }
+  .map-layer-btn:hover{border-color:var(--ochre);color:var(--soil);}
+  .map-layer-btn[aria-pressed="true"]{background:var(--soil);border-color:var(--soil);color:var(--bg);}
+  [data-theme="dark"] .map-layer-btn[aria-pressed="true"]{background:var(--ochre);border-color:var(--ochre);color:var(--soil-2);}
+  /* Full-bleed: breaks out of the section's max-width to span the viewport. */
+  .map-bleed{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+  #footprint-map{
+    height:82vh;min-height:480px;max-height:760px;
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    background:var(--bg-alt);
+  }
+  .map-stats{margin-top:18px;display:none;}
+  .map-stats.is-visible{display:block;}
+  .map-stats .ms-label{font-size:.76rem;font-weight:700;color:var(--grey);margin-bottom:10px;}
+  .map-stats table{width:100%;border-collapse:collapse;font-size:.86rem;}
+  .map-stats th,.map-stats td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid var(--border);}
+  .map-stats th{color:var(--grey);font-weight:600;font-size:.78rem;}
+  .map-stats td{color:var(--text-soft);}
+  .map-stats td.msn{color:var(--soil);font-weight:600;}
+  .map-stats .ms-note{font-size:.78rem;color:var(--grey);margin-top:10px;max-width:680px;}
+  #footprint-map .leaflet-tile-pane{filter:grayscale(35%) sepia(18%) saturate(80%) brightness(1.02) contrast(1.02);}
+  [data-theme="dark"] #footprint-map .leaflet-tile-pane{filter:grayscale(55%) sepia(10%) invert(92%) hue-rotate(180deg) brightness(.87) contrast(.92);}
+  #footprint-map .leaflet-control-zoom a{
+    background:var(--card) !important;color:var(--soil) !important;border-color:var(--border) !important;
+  }
+  #footprint-map .leaflet-control-attribution{
+    background:rgba(255,252,246,.75) !important;color:var(--grey) !important;font-size:.68rem !important;
+  }
+  [data-theme="dark"] #footprint-map .leaflet-control-attribution{background:rgba(38,32,26,.75) !important;}
+  .map-pin span{
+    display:block;width:11px;height:11px;border-radius:50%;
+    background:var(--ochre);border:2px solid var(--card);
+    box-shadow:0 0 0 1.5px var(--ochre-deep);
+  }
+  .map-pin--small span{width:8px;height:8px;border-width:1.5px;box-shadow:0 0 0 1px var(--ochre-deep);}
+  .map-popup .leaflet-popup-content-wrapper{
+    background:var(--card);color:var(--text);border-radius:6px;box-shadow:0 10px 26px rgba(43,36,32,.22);
+  }
+  .map-popup .leaflet-popup-tip{background:var(--card);}
+  .map-popup .leaflet-popup-content{margin:12px 14px;font-family:'IBM Plex Sans',sans-serif;}
+  .map-popup .mp-title{font-weight:600;color:var(--soil);font-size:.9rem;margin-bottom:4px;}
+  .map-popup .mp-desc{font-size:.82rem;color:var(--text-soft);line-height:1.5;}
+  .map-popup .mp-link{display:inline-block;margin-top:6px;font-size:.8rem;font-weight:600;}
+  .map-caption{font-size:.82rem;color:var(--grey);margin-top:10px;}
   .timeline{border-left:2px solid var(--border);padding-left:26px;}
   .tl-item{position:relative;margin-bottom:28px;}
   .tl-item::before{content:'';position:absolute;left:-32px;top:4px;width:9px;height:9px;border-radius:50%;background:var(--ochre);box-shadow:0 0 0 4px var(--bg);}
@@ -781,6 +836,37 @@
       <div class="stat-card"><div class="num">3</div><div class="label" data-i18n="stat_ventures">Ventures founded solo</div></div>
     </div>
 
+    <div class="map-block">
+      <h3 class="map-label" data-i18n="map_title">Where this experience actually happened</h3>
+      <p class="map-sub" data-i18n="map_sub">Every pin is a real place tied to a role, degree, founding date or research site on this site — click one for details.</p>
+      <div class="map-layer-toggle" id="map-layer-toggle" role="group" aria-label="Map layer">
+        <button class="map-layer-btn" data-layer="career" aria-pressed="true" data-i18n="map_layer_career">Career &amp; ventures (9)</button>
+        <button class="map-layer-btn" data-layer="research" aria-pressed="false" data-i18n="map_layer_research">Crop stress research sites (36)</button>
+      </div>
+      <div class="map-bleed">
+        <div id="footprint-map" role="region" aria-label="Interactive map of real project and career locations. Zoom controls and clickable markers are keyboard accessible."></div>
+      </div>
+      <div class="map-stats" id="map-stats">
+        <p class="ms-label" data-i18n="map_stats_label">CROP STRESS PREDICTION — REAL 2023–2024 TEST-SET RESULTS, BY COUNTRY</p>
+        <table>
+          <thead><tr>
+            <th data-i18n="map_stats_col_country">Country</th>
+            <th data-i18n="map_stats_col_rows">Test rows</th>
+            <th data-i18n="map_stats_col_rate">Real stress rate</th>
+            <th data-i18n="map_stats_col_acc">Accuracy</th>
+            <th data-i18n="map_stats_col_f1">F1 (stress class)</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="msn">Afghanistan</td><td>507</td><td>25.6%</td><td>81.3%</td><td>0.62</td></tr>
+            <tr><td class="msn">Netherlands</td><td>325</td><td>18.8%</td><td>65.5%</td><td>0.19</td></tr>
+            <tr><td class="msn">New Zealand</td><td>393</td><td>15.8%</td><td>65.9%</td><td>0.26</td></tr>
+          </tbody>
+        </table>
+        <p class="ms-note" data-i18n="map_stats_note">No farmer-count or yield data exists for these sites — this is satellite-derived vegetation-stress data only, 6 years (2019–2024), evaluated on a genuine holdout the model never trained on. Full methodology in the case study.</p>
+      </div>
+      <p class="map-caption" data-i18n-html="map_caption">Career pins link to the relevant section above; research-site pins link to the full <a href="#projects" data-modal-open="stresspredict">Crop Stress Prediction case study</a>.</p>
+    </div>
+
     <div class="two-col">
       <div>
         <h3 style="font-size:1.1rem;color:var(--soil);margin-bottom:18px;" data-i18n="exp_title">Experience</h3>
@@ -878,6 +964,7 @@
   </div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function(){
   "use strict";
@@ -1082,6 +1169,14 @@
         about_p3: "Based in Leuth (Gelderland, Arnhem-Nijmegen region) and available hybrid or on-location anywhere in the Netherlands for site visits, workshops and embedded project work. Particular focus on themes with active Dutch and EU funding and policy attention: nitrogen and drought monitoring, precision agriculture, ESG &amp; CSRD reporting, and climate adaptation. Also available fully remote for EU and international engagements.",
         stat_years: "Years experience", stat_platforms: "Platforms deployed solo",
         stat_accuracy: "Model accuracy (Agrisim &amp; Rapagra)", stat_ventures: "Ventures founded solo",
+        map_title: "Where this experience actually happened",
+        map_sub: "Every pin is a real place tied to a role, degree, founding date or research site on this site — click one for details.",
+        map_layer_career: "Career &amp; ventures (9)", map_layer_research: "Crop stress research sites (36)",
+        map_stats_label: "CROP STRESS PREDICTION — REAL 2023–2024 TEST-SET RESULTS, BY COUNTRY",
+        map_stats_col_country: "Country", map_stats_col_rows: "Test rows", map_stats_col_rate: "Real stress rate",
+        map_stats_col_acc: "Accuracy", map_stats_col_f1: "F1 (stress class)",
+        map_stats_note: "No farmer-count or yield data exists for these sites — this is satellite-derived vegetation-stress data only, 6 years (2019–2024), evaluated on a genuine holdout the model never trained on. Full methodology in the case study.",
+        map_caption: "Career pins link to the relevant section above; research-site pins link to the full <a href=\"#projects\" data-modal-open=\"stresspredict\">Crop Stress Prediction case study</a>.",
         exp_title: "Experience", edu_title: "Education &amp; Languages",
         exp1_role: "Founder", exp1_desc: "Registered independent consultancy delivering applied AI, machine-learning and data solutions to Dutch SMEs and development-sector clients.",
         exp9_role: "Founder", exp9_desc: "Free, open-access research and data platform across six development pillars; published policy briefs on water security, soil degradation and economic diversification.",
@@ -1210,6 +1305,14 @@
         about_p3: "Gevestigd in Leuth (Gelderland, regio Arnhem-Nijmegen) en beschikbaar hybride of op locatie in heel Nederland voor bezoeken, workshops en projectwerk op locatie. Bijzondere focus op thema's met actieve Nederlandse en EU-aandacht voor financiering en beleid: stikstof- en droogtemonitoring, precisielandbouw, ESG &amp; CSRD-rapportage, en klimaatadaptatie. Ook volledig op afstand beschikbaar voor EU- en internationale opdrachten.",
         stat_years: "Jaar ervaring", stat_platforms: "Zelfstandig uitgerolde platforms",
         stat_accuracy: "Modelnauwkeurigheid (Agrisim &amp; Rapagra)", stat_ventures: "Zelfstandig opgerichte ondernemingen",
+        map_title: "Waar deze ervaring daadwerkelijk plaatsvond",
+        map_sub: "Elke pin is een echte plek gekoppeld aan een functie, opleiding, oprichtingsdatum of onderzoekslocatie op deze site — klik voor details.",
+        map_layer_career: "Loopbaan &amp; ondernemingen (9)", map_layer_research: "Gewasstress-onderzoekslocaties (36)",
+        map_stats_label: "CROP STRESS PREDICTION — ECHTE 2023–2024 TESTRESULTATEN, PER LAND",
+        map_stats_col_country: "Land", map_stats_col_rows: "Testrijen", map_stats_col_rate: "Echt stresspercentage",
+        map_stats_col_acc: "Nauwkeurigheid", map_stats_col_f1: "F1 (stressklasse)",
+        map_stats_note: "Er bestaan geen cijfers over aantal boeren of opbrengst voor deze locaties — dit zijn uitsluitend satellietgebaseerde vegetatiestressgegevens, over 6 jaar (2019–2024), geëvalueerd op een echte testset waarop het model nooit heeft getraind. Volledige methodologie in de praktijkcase.",
+        map_caption: "Loopbaanpins verwijzen naar het relevante onderdeel hierboven; onderzoekslocatiepins verwijzen naar de volledige <a href=\"#projects\" data-modal-open=\"stresspredict\">Crop Stress Prediction praktijkcase</a>.",
         exp_title: "Ervaring", edu_title: "Opleiding &amp; Talen",
         exp1_role: "Oprichter", exp1_desc: "Geregistreerd zelfstandig adviesbureau dat toegepaste AI-, machine-learning- en data-oplossingen levert aan Nederlandse mkb-bedrijven en klanten in de ontwikkelingssector.",
         exp9_role: "Oprichter", exp9_desc: "Gratis, open-access onderzoeks- en dataplatform over zes ontwikkelingspijlers; beleidsnotities gepubliceerd over waterzekerheid, bodemdegradatie en economische diversificatie.",
@@ -1466,9 +1569,140 @@
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && backdrop.classList.contains('is-open')){ closeModal(); }
   });
+  /* Delegated so it also catches links inside dynamically-built map popups. */
+  document.addEventListener('click', function(e){
+    var trigger = e.target.closest && e.target.closest('[data-modal-open]');
+    if(trigger){ e.preventDefault(); openModal(trigger.getAttribute('data-modal-open')); }
+  });
 
   /* Initial industry panel render (agritech is default-pressed tab) */
   renderIndustry('agritech');
+
+  /* ---------- Footprint map ----------
+     Two real, honest layers, toggled by the visitor -- nothing invented:
+     1. "career" -- 9 real career/education/founding locations, each tied
+        to a role, degree or founding date already stated elsewhere on
+        this page.
+     2. "research" -- the exact 36 real coordinates from the open-source
+        Crop Stress Prediction project's src/locations.py (regenerated
+        programmatically from that file, not hand-typed, to avoid
+        transcription errors). No farmer-count or yield data exists for
+        these sites -- deliberately not fabricated -- so the accompanying
+        stats table shows only what's real: per-country test-set
+        accuracy/F1 from that project's reports/metrics.json.
+     English-only popups, same disclosed scoping choice as the case-study
+     modals and industry-panel descriptions. */
+  try {
+    if(typeof L !== 'undefined' && document.getElementById('footprint-map')){
+      var careerLocations = [
+        { lat:51.87, lon:5.98, title:'Leuth, Netherlands', desc:'Alamzoi Consultancy · ZaminAI · Afghanistan Development Initiative — founded here, 2026–present.' },
+        { lat:51.9692, lon:5.6669, title:'Wageningen, Netherlands', desc:'Agrisim &amp; Rapagra — Data Scientist, 2023–2025.', modal:'agrisim' },
+        { lat:51.3704, lon:6.1724, title:'Venlo, Netherlands', desc:'HAS University of Applied Sciences — Researcher (Data &amp; Remote Sensing), 2022.' },
+        { lat:51.6978, lon:5.3037, title:'Noord-Brabant, Netherlands', desc:'Precision Agriculture Campus — Data Scientist &amp; Trainer, 2022–2023.' },
+        { lat:34.5553, lon:69.2075, title:'Kabul, Afghanistan', desc:'FAO (UN) National Consultant, 2018–2019 · Head of National Mechanization Services (MAIL), 2016–2018 — services delivered nationally across all 34 provinces.', modal:'mail' },
+        { lat:22.3149, lon:87.3105, title:'Kharagpur, India', desc:'M.Tech, Farm Power &amp; Machinery — IIT Kharagpur, 2020–2022.' },
+        { lat:47.2357, lon:39.7015, title:'Rostov-on-Don, Russia', desc:'B.Tech, Agricultural Engineering — Don State Technical University, 2011–2016.' },
+        { lat:36.0839, lon:140.0764, title:'Tsukuba, Japan', desc:'JICA Knowledge Co-Creation Programme, 2017.' },
+        { lat:-37.7826, lon:175.2528, title:'New Zealand', desc:'Crop Stress Prediction — 12 of the project’s 36 open-source research sites.', modal:'stresspredict' }
+      ];
+
+      /* Exact real coordinates from crop-stress-prediction/src/locations.py (36 sites). */
+      var researchSites = [
+        {n:'Shakardara',c:'Afghanistan',r:'Kabul',lat:34.65,lon:69.03,z:'Highland irrigated'},
+        {n:'Kama',c:'Afghanistan',r:'Nangarhar',lat:34.42,lon:70.55,z:'Lowland irrigated'},
+        {n:'Dawlatabad',c:'Afghanistan',r:'Balkh',lat:36.85,lon:66.85,z:'Plains irrigated'},
+        {n:'Injil',c:'Afghanistan',r:'Herat',lat:34.28,lon:62.15,z:'Plains irrigated'},
+        {n:'Arghandab',c:'Afghanistan',r:'Kandahar',lat:31.72,lon:65.65,z:'Arid irrigated'},
+        {n:'Khanabad',c:'Afghanistan',r:'Kunduz',lat:36.65,lon:68.95,z:'Plains irrigated'},
+        {n:'Faizabad',c:'Afghanistan',r:'Badakhshan',lat:37.10,lon:70.55,z:'Highland rainfed'},
+        {n:'NadAli',c:'Afghanistan',r:'Helmand',lat:31.55,lon:64.25,z:'Arid irrigated'},
+        {n:'GhazniCity',c:'Afghanistan',r:'Ghazni',lat:33.55,lon:68.42,z:'Highland rainfed'},
+        {n:'Maimana',c:'Afghanistan',r:'Faryab',lat:35.92,lon:64.78,z:'Plains rainfed'},
+        {n:'Chaghcharan',c:'Afghanistan',r:'Ghor',lat:34.52,lon:65.25,z:'Highland rainfed'},
+        {n:'Zaranj',c:'Afghanistan',r:'Nimroz',lat:31.00,lon:61.87,z:'Arid irrigated'},
+        {n:'Dronten',c:'Netherlands',r:'Flevoland',lat:52.53,lon:5.72,z:'Temperate arable'},
+        {n:'Veendam',c:'Netherlands',r:'Groningen',lat:53.10,lon:6.87,z:'Temperate arable'},
+        {n:'Sneek',c:'Netherlands',r:'Friesland',lat:53.03,lon:5.65,z:'Temperate dairy pasture'},
+        {n:'Goes',c:'Netherlands',r:'Zeeland',lat:51.50,lon:3.90,z:'Temperate arable'},
+        {n:'Uden',c:'Netherlands',r:'Noord-Brabant',lat:51.66,lon:5.62,z:'Temperate dairy pasture'},
+        {n:'Tiel',c:'Netherlands',r:'Gelderland',lat:51.90,lon:5.60,z:'Temperate horticulture'},
+        {n:'Almelo',c:'Netherlands',r:'Overijssel',lat:52.35,lon:6.60,z:'Temperate dairy pasture'},
+        {n:'Venlo',c:'Netherlands',r:'Limburg',lat:51.37,lon:6.17,z:'Temperate horticulture'},
+        {n:'Wieringermeer',c:'Netherlands',r:'Noord-Holland',lat:52.85,lon:5.00,z:'Temperate arable'},
+        {n:'Emmen',c:'Netherlands',r:'Drenthe',lat:52.75,lon:6.85,z:'Temperate arable'},
+        {n:'Bunnik',c:'Netherlands',r:'Utrecht',lat:52.05,lon:5.20,z:'Temperate dairy pasture'},
+        {n:'Alblasserdam',c:'Netherlands',r:'Zuid-Holland',lat:51.87,lon:4.67,z:'Temperate dairy pasture'},
+        {n:'Ashburton',c:'New Zealand',r:'Canterbury',lat:-43.90,lon:171.75,z:'Maritime arable'},
+        {n:'Hamilton',c:'New Zealand',r:'Waikato',lat:-37.78,lon:175.28,z:'Maritime dairy pasture'},
+        {n:'Gore',c:'New Zealand',r:'Southland',lat:-46.10,lon:168.95,z:'Maritime dairy pasture'},
+        {n:'PalmerstonN',c:'New Zealand',r:'Manawatu',lat:-40.35,lon:175.61,z:'Maritime dairy pasture'},
+        {n:'Hastings',c:'New Zealand',r:'HawkesBay',lat:-39.64,lon:176.84,z:'Maritime horticulture'},
+        {n:'Balclutha',c:'New Zealand',r:'Otago',lat:-46.23,lon:169.75,z:'Maritime arable'},
+        {n:'TePuke',c:'New Zealand',r:'BayOfPlenty',lat:-37.78,lon:176.32,z:'Maritime horticulture'},
+        {n:'Stratford',c:'New Zealand',r:'Taranaki',lat:-39.34,lon:174.28,z:'Maritime dairy pasture'},
+        {n:'Blenheim',c:'New Zealand',r:'Marlborough',lat:-41.51,lon:173.96,z:'Maritime horticulture'},
+        {n:'Masterton',c:'New Zealand',r:'Wairarapa',lat:-40.96,lon:175.66,z:'Maritime arable'},
+        {n:'Kerikeri',c:'New Zealand',r:'Northland',lat:-35.22,lon:173.95,z:'Maritime horticulture'},
+        {n:'Motueka',c:'New Zealand',r:'Tasman',lat:-41.11,lon:173.00,z:'Maritime horticulture'}
+      ];
+
+      var map = L.map('footprint-map', { scrollWheelZoom:false, minZoom:2, maxZoom:11 });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+        maxZoom: 11
+      }).addTo(map);
+
+      var pinIcon = L.divIcon({ className:'map-pin', html:'<span></span>', iconSize:[14,14], iconAnchor:[7,7] });
+      var smallPinIcon = L.divIcon({ className:'map-pin map-pin--small', html:'<span></span>', iconSize:[10,10], iconAnchor:[5,5] });
+
+      var careerLayer = L.layerGroup();
+      var careerBounds = [];
+      careerLocations.forEach(function(loc){
+        var marker = L.marker([loc.lat, loc.lon], { icon: pinIcon, title: loc.title, keyboard: true });
+        var html = '<div class="mp-title">' + loc.title + '</div><div class="mp-desc">' + loc.desc + '</div>';
+        if(loc.modal){ html += '<a class="mp-link" href="#projects" data-modal-open="' + loc.modal + '">View case study →</a>'; }
+        marker.bindPopup(html, { className:'map-popup', closeButton:true });
+        marker.addTo(careerLayer);
+        careerBounds.push([loc.lat, loc.lon]);
+      });
+
+      var researchLayer = L.layerGroup();
+      var researchBounds = [];
+      researchSites.forEach(function(loc){
+        var marker = L.marker([loc.lat, loc.lon], { icon: smallPinIcon, title: loc.n + ', ' + loc.c, keyboard: true });
+        var html = '<div class="mp-title">' + loc.n + ', ' + loc.c + '</div>' +
+          '<div class="mp-desc">' + loc.r + ' · ' + loc.z + '<br>Crop Stress Prediction research site</div>' +
+          '<a class="mp-link" href="#projects" data-modal-open="stresspredict">View case study →</a>';
+        marker.bindPopup(html, { className:'map-popup', closeButton:true });
+        marker.addTo(researchLayer);
+        researchBounds.push([loc.lat, loc.lon]);
+      });
+
+      careerLayer.addTo(map);
+      map.fitBounds(careerBounds, { padding:[26,26] });
+
+      var statsPanel = document.getElementById('map-stats');
+      var layerButtons = document.querySelectorAll('.map-layer-btn');
+      layerButtons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          layerButtons.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+          btn.setAttribute('aria-pressed','true');
+          var layer = btn.getAttribute('data-layer');
+          if(layer === 'research'){
+            map.removeLayer(careerLayer);
+            researchLayer.addTo(map);
+            map.fitBounds(researchBounds, { padding:[26,26] });
+            if(statsPanel) statsPanel.classList.add('is-visible');
+          } else {
+            map.removeLayer(researchLayer);
+            careerLayer.addTo(map);
+            map.fitBounds(careerBounds, { padding:[26,26] });
+            if(statsPanel) statsPanel.classList.remove('is-visible');
+          }
+        });
+      });
+    }
+  } catch(e) { /* isolated: a map-loading issue should never take down the rest of the page */ }
 })();
 </script>
 
