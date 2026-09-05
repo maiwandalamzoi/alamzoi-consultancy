@@ -30,6 +30,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous">
 
 <style>
   :root{
@@ -331,7 +332,7 @@
   .map-layer-btn[aria-pressed="true"]{background:var(--soil);border-color:var(--soil);color:var(--bg);}
   [data-theme="dark"] .map-layer-btn[aria-pressed="true"]{background:var(--ochre);border-color:var(--ochre);color:var(--soil-2);}
   /* Full-bleed: breaks out of the section's max-width to span the viewport. */
-  .map-bleed{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+  .map-bleed{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);position:relative;}
   #footprint-map{
     height:82vh;min-height:480px;max-height:760px;
     border-top:1px solid var(--border);border-bottom:1px solid var(--border);
@@ -339,12 +340,27 @@
   }
   .map-stats{margin-top:18px;display:none;}
   .map-stats.is-visible{display:block;}
-  .map-stats .ms-label{font-size:.76rem;font-weight:700;color:var(--grey);margin-bottom:10px;}
+  .map-stats .ms-label{font-size:.76rem;font-weight:700;color:var(--grey);margin-bottom:2px;}
+  .map-stats .ms-hint{font-size:.78rem;color:var(--text-soft);margin-bottom:10px;}
   .map-stats table{width:100%;border-collapse:collapse;font-size:.86rem;}
   .map-stats th,.map-stats td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid var(--border);}
   .map-stats th{color:var(--grey);font-weight:600;font-size:.78rem;}
   .map-stats td{color:var(--text-soft);}
   .map-stats td.msn{color:var(--soil);font-weight:600;}
+  /* Country rows double as a map filter -- clicking one zooms the map to
+     just that country's research sites, so they need to read as
+     clickable controls, not plain data. */
+  .map-stats tbody tr{cursor:pointer;}
+  .map-stats tbody tr:hover td{background:var(--bg-alt);}
+  .map-stats tbody tr:focus-visible{outline:2px solid var(--ochre);outline-offset:-2px;}
+  .map-stats tbody tr.is-active td{background:var(--bg-alt);}
+  .map-stats tbody tr.is-active td.msn{color:var(--ochre-deep);}
+  .map-stats tbody tr.is-active td.msn::before{content:'▸ ';}
+  .map-stats .ms-reset{
+    display:none;margin-top:10px;background:none;border:none;padding:0;font:inherit;
+    font-size:.82rem;font-weight:600;color:var(--ochre-deep);cursor:pointer;text-decoration:underline;
+  }
+  .map-stats .ms-reset.is-visible{display:inline-block;}
   .map-stats .ms-note{font-size:.78rem;color:var(--grey);margin-top:10px;max-width:680px;}
   #footprint-map .leaflet-tile-pane{filter:grayscale(35%) sepia(18%) saturate(80%) brightness(1.02) contrast(1.02);}
   [data-theme="dark"] #footprint-map .leaflet-tile-pane{filter:grayscale(55%) sepia(10%) invert(92%) hue-rotate(180deg) brightness(.87) contrast(.92);}
@@ -361,6 +377,33 @@
     box-shadow:0 0 0 1.5px var(--ochre-deep);
   }
   .map-pin--small span{width:8px;height:8px;border-width:1.5px;box-shadow:0 0 0 1px var(--ochre-deep);}
+  /* Research layer (36 sites) clusters at low zoom -- default plugin
+     colors replaced with the site's own earthy palette so it reads as
+     part of this design, not a bolted-on library default. */
+  .map-cluster{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--ochre);border:2px solid var(--card);border-radius:50%;
+    color:var(--card);font-family:'IBM Plex Sans',sans-serif;font-weight:600;
+    box-shadow:0 0 0 1.5px var(--ochre-deep);
+  }
+  .map-cluster.mc-med{background:var(--soil);box-shadow:0 0 0 1.5px var(--soil);}
+  .map-cluster.mc-large{background:var(--clay);box-shadow:0 0 0 1.5px var(--clay);}
+  .map-tooltip.leaflet-tooltip{
+    background:var(--soil);color:var(--bg);border:none;border-radius:4px;
+    font-family:'IBM Plex Sans',sans-serif;font-size:.78rem;font-weight:500;padding:4px 8px;
+    box-shadow:0 4px 10px rgba(43,36,32,.2);
+  }
+  .map-tooltip.leaflet-tooltip::before{border-top-color:var(--soil);}
+  /* Scroll-zoom starts disabled so the map never hijacks a page scroll;
+     this hint tells people it's a real interactive map and how to
+     unlock it, then disappears on first click -- same pattern used by
+     most professional embedded-map examples. */
+  .map-zoom-hint{
+    position:absolute;z-index:600;top:14px;right:14px;background:rgba(43,36,32,.78);
+    color:#fff;font-size:.76rem;font-weight:500;padding:6px 12px;border-radius:20px;
+    pointer-events:none;transition:opacity .3s;font-family:'IBM Plex Sans',sans-serif;
+  }
+  .map-zoom-hint.is-hidden{opacity:0;}
   .map-popup .leaflet-popup-content-wrapper{
     background:var(--card);color:var(--text);border-radius:6px;box-shadow:0 10px 26px rgba(43,36,32,.22);
   }
@@ -873,9 +916,11 @@
       </div>
       <div class="map-bleed">
         <div id="footprint-map" role="region" aria-label="Interactive map of real project and career locations. Zoom controls and clickable markers are keyboard accessible."></div>
+        <div class="map-zoom-hint" id="map-zoom-hint" data-i18n="map_zoom_hint" aria-hidden="true">Click the map to enable scroll-zoom</div>
       </div>
       <div class="map-stats" id="map-stats">
         <p class="ms-label" data-i18n="map_stats_label">CROP STRESS PREDICTION — REAL 2023–2024 TEST-SET RESULTS, BY COUNTRY</p>
+        <p class="ms-hint" data-i18n="map_stats_hint">Click a country to zoom the map to just its research sites.</p>
         <table>
           <thead><tr>
             <th data-i18n="map_stats_col_country">Country</th>
@@ -884,12 +929,13 @@
             <th data-i18n="map_stats_col_acc">Accuracy</th>
             <th data-i18n="map_stats_col_f1">F1 (stress class)</th>
           </tr></thead>
-          <tbody>
-            <tr><td class="msn">Afghanistan</td><td>507</td><td>25.6%</td><td>81.3%</td><td>0.62</td></tr>
-            <tr><td class="msn">Netherlands</td><td>325</td><td>18.8%</td><td>65.5%</td><td>0.19</td></tr>
-            <tr><td class="msn">New Zealand</td><td>393</td><td>15.8%</td><td>65.9%</td><td>0.26</td></tr>
+          <tbody id="map-stats-body">
+            <tr data-country="Afghanistan" tabindex="0" role="button" aria-pressed="false"><td class="msn">Afghanistan</td><td>507</td><td>25.6%</td><td>81.3%</td><td>0.62</td></tr>
+            <tr data-country="Netherlands" tabindex="0" role="button" aria-pressed="false"><td class="msn">Netherlands</td><td>325</td><td>18.8%</td><td>65.5%</td><td>0.19</td></tr>
+            <tr data-country="New Zealand" tabindex="0" role="button" aria-pressed="false"><td class="msn">New Zealand</td><td>393</td><td>15.8%</td><td>65.9%</td><td>0.26</td></tr>
           </tbody>
         </table>
+        <button type="button" class="ms-reset" id="map-stats-reset" data-i18n="map_stats_reset">Show all research sites ✕</button>
         <p class="ms-note" data-i18n="map_stats_note">No farmer-count or yield data exists for these sites — this is satellite-derived vegetation-stress data only, 6 years (2019–2024), evaluated on a genuine holdout the model never trained on. Full methodology in the case study.</p>
       </div>
       <p class="map-caption" data-i18n-html="map_caption">Career pins link to the relevant section above; research-site pins link to the full <a href="#projects" data-modal-open="stresspredict">Crop Stress Prediction case study</a>.</p>
@@ -993,6 +1039,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr" crossorigin="anonymous"></script>
 <script>
 (function(){
   "use strict";
@@ -1207,8 +1254,11 @@
         map_sub: "Every pin is a real place tied to a role, degree, founding date or research site on this site — click one for details.",
         map_layer_career: "Career &amp; ventures (9)", map_layer_research: "Crop stress research sites (36)",
         map_stats_label: "CROP STRESS PREDICTION — REAL 2023–2024 TEST-SET RESULTS, BY COUNTRY",
+        map_stats_hint: "Click a country to zoom the map to just its research sites.",
         map_stats_col_country: "Country", map_stats_col_rows: "Test rows", map_stats_col_rate: "Real stress rate",
         map_stats_col_acc: "Accuracy", map_stats_col_f1: "F1 (stress class)",
+        map_stats_reset: "Show all research sites ✕",
+        map_zoom_hint: "Click the map to enable scroll-zoom",
         map_stats_note: "No farmer-count or yield data exists for these sites — this is satellite-derived vegetation-stress data only, 6 years (2019–2024), evaluated on a genuine holdout the model never trained on. Full methodology in the case study.",
         map_caption: "Career pins link to the relevant section above; research-site pins link to the full <a href=\"#projects\" data-modal-open=\"stresspredict\">Crop Stress Prediction case study</a>.",
         exp_title: "Experience", edu_title: "Education &amp; Languages",
@@ -1349,8 +1399,11 @@
         map_sub: "Elke pin is een echte plek gekoppeld aan een functie, opleiding, oprichtingsdatum of onderzoekslocatie op deze site — klik voor details.",
         map_layer_career: "Loopbaan &amp; ondernemingen (9)", map_layer_research: "Gewasstress-onderzoekslocaties (36)",
         map_stats_label: "CROP STRESS PREDICTION — ECHTE 2023–2024 TESTRESULTATEN, PER LAND",
+        map_stats_hint: "Klik op een land om in te zoomen op alleen de onderzoekslocaties van dat land.",
         map_stats_col_country: "Land", map_stats_col_rows: "Testrijen", map_stats_col_rate: "Echt stresspercentage",
         map_stats_col_acc: "Nauwkeurigheid", map_stats_col_f1: "F1 (stressklasse)",
+        map_stats_reset: "Toon alle onderzoekslocaties ✕",
+        map_zoom_hint: "Klik op de kaart om scrollzoom in te schakelen",
         map_stats_note: "Er bestaan geen cijfers over aantal boeren of opbrengst voor deze locaties — dit zijn uitsluitend satellietgebaseerde vegetatiestressgegevens, over 6 jaar (2019–2024), geëvalueerd op een echte testset waarop het model nooit heeft getraind. Volledige methodologie in de praktijkcase.",
         map_caption: "Loopbaanpins verwijzen naar het relevante onderdeel hierboven; onderzoekslocatiepins verwijzen naar de volledige <a href=\"#projects\" data-modal-open=\"stresspredict\">Crop Stress Prediction praktijkcase</a>.",
         exp_title: "Ervaring", edu_title: "Opleiding &amp; Talen",
@@ -1692,8 +1745,20 @@
         maxZoom: 11
       }).addTo(map);
 
+      // Scroll-zoom starts off so an accidental page-scroll over the map
+      // never gets hijacked into a map zoom; a first click on empty map
+      // area (not a marker -- Leaflet markers stop click propagation)
+      // turns it on and hides the hint, same pattern most embedded-map
+      // examples use.
+      var zoomHint = document.getElementById('map-zoom-hint');
+      map.once('click', function(){
+        map.scrollWheelZoom.enable();
+        if(zoomHint) zoomHint.classList.add('is-hidden');
+      });
+
       var pinIcon = L.divIcon({ className:'map-pin', html:'<span></span>', iconSize:[14,14], iconAnchor:[7,7] });
       var smallPinIcon = L.divIcon({ className:'map-pin map-pin--small', html:'<span></span>', iconSize:[10,10], iconAnchor:[5,5] });
+      var tooltipOpts = { direction:'top', offset:[0,-8], className:'map-tooltip' };
 
       var careerLayer = L.layerGroup();
       var careerBounds = [];
@@ -1702,26 +1767,89 @@
         var html = '<div class="mp-title">' + loc.title + '</div><div class="mp-desc">' + loc.desc + '</div>';
         if(loc.modal){ html += '<a class="mp-link" href="#projects" data-modal-open="' + loc.modal + '">View case study →</a>'; }
         marker.bindPopup(html, { className:'map-popup', closeButton:true });
+        marker.bindTooltip(loc.title, tooltipOpts);
         marker.addTo(careerLayer);
         careerBounds.push([loc.lat, loc.lon]);
       });
 
-      var researchLayer = L.layerGroup();
+      // Research layer (36 sites) clusters at low zoom instead of
+      // dumping every pin on screen at once -- Netherlands alone has 12
+      // sites close enough together to overlap. Custom icon function
+      // below re-skins the plugin's default cluster colors to match
+      // this site's own earthy palette. Markers are also indexed by
+      // country so the stats table below can drive the map (real
+      // interactivity, not just a static illustration next to real data).
+      var researchCluster = L.markerClusterGroup({
+        maxClusterRadius: 45,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        iconCreateFunction: function(cluster){
+          var count = cluster.getChildCount();
+          var sizeClass = count < 6 ? '' : (count < 15 ? 'mc-med' : 'mc-large');
+          var px = count < 6 ? 30 : (count < 15 ? 36 : 42);
+          return L.divIcon({
+            html: '<div class="map-cluster ' + sizeClass + '" style="width:' + px + 'px;height:' + px + 'px;">' + count + '</div>',
+            className: '', iconSize: [px, px]
+          });
+        }
+      });
+      var allResearchMarkers = [];
       var researchBounds = [];
+      var researchByCountry = {};
+      var researchBoundsByCountry = {};
       researchSites.forEach(function(loc){
         var marker = L.marker([loc.lat, loc.lon], { icon: smallPinIcon, title: loc.n + ', ' + loc.c, keyboard: true });
         var html = '<div class="mp-title">' + loc.n + ', ' + loc.c + '</div>' +
           '<div class="mp-desc">' + loc.r + ' · ' + loc.z + '<br>Crop Stress Prediction research site</div>' +
           '<a class="mp-link" href="#projects" data-modal-open="stresspredict">View case study →</a>';
         marker.bindPopup(html, { className:'map-popup', closeButton:true });
-        marker.addTo(researchLayer);
+        marker.bindTooltip(loc.n + ', ' + loc.c, tooltipOpts);
+        allResearchMarkers.push(marker);
         researchBounds.push([loc.lat, loc.lon]);
+        (researchByCountry[loc.c] = researchByCountry[loc.c] || []).push(marker);
+        (researchBoundsByCountry[loc.c] = researchBoundsByCountry[loc.c] || []).push([loc.lat, loc.lon]);
       });
+      researchCluster.addLayers(allResearchMarkers);
 
       careerLayer.addTo(map);
       map.fitBounds(careerBounds, { padding:[26,26] });
 
       var statsPanel = document.getElementById('map-stats');
+      var statRows = document.querySelectorAll('#map-stats-body tr');
+      var resetBtn = document.getElementById('map-stats-reset');
+
+      function clearCountryFilter(){
+        researchCluster.clearLayers();
+        researchCluster.addLayers(allResearchMarkers);
+        statRows.forEach(function(r){ r.classList.remove('is-active'); r.setAttribute('aria-pressed','false'); });
+        if(resetBtn) resetBtn.classList.remove('is-visible');
+      }
+      function filterToCountry(country, row){
+        var markers = researchByCountry[country];
+        var bounds = researchBoundsByCountry[country];
+        if(!markers || !bounds) return;
+        researchCluster.clearLayers();
+        researchCluster.addLayers(markers);
+        map.flyToBounds(bounds, { padding:[50,50], maxZoom:8, duration:1.1 });
+        statRows.forEach(function(r){ r.classList.remove('is-active'); r.setAttribute('aria-pressed','false'); });
+        row.classList.add('is-active');
+        row.setAttribute('aria-pressed','true');
+        if(resetBtn) resetBtn.classList.add('is-visible');
+      }
+      statRows.forEach(function(row){
+        var country = row.getAttribute('data-country');
+        row.addEventListener('click', function(){ filterToCountry(country, row); });
+        row.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); filterToCountry(country, row); }
+        });
+      });
+      if(resetBtn){
+        resetBtn.addEventListener('click', function(){
+          clearCountryFilter();
+          map.flyToBounds(researchBounds, { padding:[26,26], duration:1.1 });
+        });
+      }
+
       var layerButtons = document.querySelectorAll('.map-layer-btn');
       layerButtons.forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -1730,13 +1858,15 @@
           var layer = btn.getAttribute('data-layer');
           if(layer === 'research'){
             map.removeLayer(careerLayer);
-            researchLayer.addTo(map);
-            map.fitBounds(researchBounds, { padding:[26,26] });
+            researchCluster.addTo(map);
+            clearCountryFilter();
+            map.flyToBounds(researchBounds, { padding:[26,26], duration:1.1 });
             if(statsPanel) statsPanel.classList.add('is-visible');
           } else {
-            map.removeLayer(researchLayer);
+            map.removeLayer(researchCluster);
+            clearCountryFilter();
             careerLayer.addTo(map);
-            map.fitBounds(careerBounds, { padding:[26,26] });
+            map.flyToBounds(careerBounds, { padding:[26,26], duration:1.1 });
             if(statsPanel) statsPanel.classList.remove('is-visible');
           }
         });
