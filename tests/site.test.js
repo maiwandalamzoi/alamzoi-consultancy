@@ -38,6 +38,11 @@ test('quotation form includes required client/project fields and mailto serializ
   for (const field of ['sector','location','area','deliverables','timeline','budget','problem','name','org','email']) assert.ok(submit.includes(field));
   assert.ok(submit.includes('mailto:${CONTACT_EMAIL}'));
   assert.ok(submit.includes('encodeURIComponent'));
+  assert.ok(html.includes('sectors[topic]'), 'service CTA should preselect a valid client sector');
+  assert.match(html, /body_phone:"Phone"/);
+  assert.match(html, /body_phone:"Telefoon"/);
+  assert.match(html, /Opening your email application\. Please review and send the message there\./);
+  assert.match(html, /Uw e-mailprogramma wordt geopend\. Controleer het bericht en verstuur het vanuit daar\./);
 });
 
 test('inline JavaScript parses and map polygon calculation is present', () => {
